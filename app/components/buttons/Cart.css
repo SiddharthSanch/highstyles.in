@@ -1,0 +1,54 @@
+.cssbuttons-io-buttons {
+    background: #004cde;
+    color: white;
+    font-family: inherit;
+    padding: 0.35em;
+    padding-left: 1.2em;
+    font-size: 15px;
+    font-weight: 500;
+    border-radius: 0.9em;
+    border: none;
+    letter-spacing: 0.05em;
+    display: flex;
+    align-items: center;
+    /* box-shadow: inset 0 0 1.6em -0.6em #714da6; */
+    overflow: hidden;
+    position: relative;
+    height: 2.8em;
+    padding-right: 3.3em;
+    cursor: pointer;
+  }
+  
+  .cssbuttons-io-buttons .icons {
+    background: white;
+    margin-left: 1em;
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 2.2em;
+    width: 2.2em;
+    border-radius: 0.7em;
+    /* box-shadow: 0.1em 0.1em 0.6em 0.2em #000; */
+    right: 0.3em;
+    transition: all 0.3s;
+  }
+  
+  .cssbuttons-io-buttons:hover .icons {
+    width: calc(100% - 0.6em);
+  }
+  
+  .cssbuttons-io-buttons .icons svg {
+    width: 1.1em;
+    transition: transform 0.3s;
+    color: #7b52b9;
+  }
+  
+  .cssbuttons-io-buttons:hover .icons svg {
+    transform: translateX(0.1em);
+  }
+  
+  .cssbuttons-io-buttons:active .icons {
+    transform: scale(0.95);
+  }
+  
