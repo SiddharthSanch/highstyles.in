@@ -40,10 +40,10 @@ export default function MainLayout() {
           <div className="flex gap-3 items-center cursor-pointer">
             {/* login icon */}
             <Link href={`/onboarding/login`}>
-              <GoToCart  />
+              <GoToCart />
             </Link>
             <Link href={`/cart`}>
-              <Cart/>
+              <Cart />
             </Link>
           </div>
         </div>
@@ -51,7 +51,7 @@ export default function MainLayout() {
       {/* mobile view */}
       <div
         id="toggle-menu"
-        className={`sm:hidden flex bg-[] flex-1 justify-between items-center px-4 `}
+        className={`sm:hidden z-50 flex bg-[] flex-1 justify-between items-center px-4 `}
       >
         <div className="flex items-center justify-between bg-[#f6f6f6] w-[100%] h-[5rem] rounded-xl px-8 border-2 ">
           <Link href={`/`}>
@@ -94,7 +94,10 @@ export default function MainLayout() {
             >
               Your Cart
             </button>
-            <button className="bg-secondary mt-[-3.4rem] text-white w-full px-4 py-3 rounded-lg" onClick={()=>router.push("/onboarding/login")}>
+            <button
+              className="bg-secondary mt-[-3.4rem] text-white w-full px-4 py-3 rounded-lg"
+              onClick={() => router.push("/onboarding/login")}
+            >
               Login
             </button>
           </div>
@@ -103,6 +106,7 @@ export default function MainLayout() {
     </>
   );
 }
+
 const navLinks = [
   {
     id: "/",

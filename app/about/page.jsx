@@ -21,16 +21,13 @@ const AboutUsPage = () => {
             <div className="max-w-3xl mx-auto text-center">
               <div className="flex different relative mb-[5rem]">
                 <div
-                  className="flex justify-center absolute text-secondary w-full top-[-5rem] mt-4 sm:text-[6rem] text-3xl z-50"
+                  className="flex justify-center absolute text-secondary w-full top-[-5rem] mt-4 sm:text-[6rem] text-3xl z-40"
                   style={{
                     opacity: 0.2,
                   }}
                 >
                   About&nbsp;Highstyles.in
                 </div>
-                {/* <div className="text-[2.5rem] mt-[3.5rem] z-50">
-              Best Seller Product
-            </div> */}
               </div>
               <p className="sm:mt-4 text-lg text-gray-600">
                 At Highstyles.in, we're passionate about fashion and dedicated

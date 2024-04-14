@@ -30,23 +30,23 @@ export default function Product({ params }) {
   const [product, setProduct] = useState({});
   const [loading, setLoading] = useState(true);
   useEffect(() => {
-    async function getProduct () {
-     // useIsLoading(true);
-     setLoading(true);
-     setProduct({});
-     const response = await fetch(`/api/product/${params.id}`);
-     const prod = await response.json();
-     console.log(prod);
-     setLoading(false);
-     setProduct(prod);
-     cart.isItemAddedToCart(prod);
-     // useIsLoading(false);
-   };
-   getProduct();
-   return () => {
-     console.log("unmounted")
-   }
- }, []);
+    async function getProduct() {
+      // useIsLoading(true);
+      setLoading(true);
+      setProduct({});
+      const response = await fetch(`/api/product/${params.id}`);
+      const prod = await response.json();
+      console.log(prod);
+      setLoading(false);
+      setProduct(prod);
+      cart.isItemAddedToCart(prod);
+      // useIsLoading(false);
+    }
+    getProduct();
+    return () => {
+      console.log("unmounted");
+    };
+  }, []);
   const selectTheColor = (color) => {
     let imageUrl;
     switch (color) {
@@ -75,21 +75,23 @@ export default function Product({ params }) {
         imageUrl = product.image_red;
         break;
     }
-    setProduct(prevProduct => ({
+    setProduct((prevProduct) => ({
       ...prevProduct,
-      url: imageUrl
+      url: imageUrl,
     }));
   };
-  
+
   const [selectedImage, setSelectedImage] = useState("");
   const [showDetails, setShowDetails] = useState(false);
   useEffect(() => {
-    console.log(product.url)
-  }, [product.url])
-    return (
+    console.log(product.url);
+  }, [product.url]);
+  return (
     <>
       {loading ? (
-        <div className="flex h-screen justify-center items-center text-secondary text-3xl"><Loader/></div>
+        <div className="flex h-screen justify-center items-center text-secondary text-3xl">
+          <Loader />
+        </div>
       ) : (
         <MainLayout>
           <div className="flex flex-col gap-3 p-8 sm:mt-0 mt-[-5.5rem]">
@@ -104,9 +106,9 @@ export default function Product({ params }) {
                 </div>
                 <div className="flex w-full h-[40rem]">
                   <Image
-                    className="w-full rounded-lg object-cover"
+                    className="w-full rounded-lg object-contain"
                     // src={product?.url[0]+'/280'}
-                    src={selectedImage?selectedImage:product?.url[0]}
+                    src={selectedImage ? selectedImage : product?.url[0]}
                     width={600}
                     height={600}
                     title={product?.title}
@@ -116,16 +118,16 @@ export default function Product({ params }) {
                 <div className="flex flex-wrap gap-4">
                   {product?.url.map((url, index) => (
                     <Image
-                    src={url}
-                    key={index}
-                    width={140}
-                    height={105}
-                    alt="product"
-                    className={`cursor-pointer object-cover rounded-md ${
-                      selectedImage === url ? "border-2 border-primary" : ""
-                    }`}
-                    onClick={() => setSelectedImage(url)}
-                  />
+                      src={url}
+                      key={index}
+                      width={140}
+                      height={105}
+                      alt="product"
+                      className={`cursor-pointer object-contain rounded-md ${
+                        selectedImage === url ? "border-2 border-primary" : ""
+                      }`}
+                      onClick={() => setSelectedImage(url)}
+                    />
                   ))}
                   {/* <div className="flex ml-5 justify-center items-center">
                     <h1 className="text-gray-500">
@@ -179,10 +181,10 @@ export default function Product({ params }) {
                 <div className="flex justify-between">
                   <div className="flex items-center justify-between w-full gap-4">
                     <div className="flex flex-col">
-                    <h1 className="text-gray-500 text-xl line-through">
-                      ₹ {product?.mrp}
-                    </h1>
-                    <h1 className="text-3xl font-bold">₹ {product?.price}</h1>
+                      <h1 className="text-gray-500 text-xl line-through">
+                        ₹ {product?.mrp}
+                      </h1>
+                      <h1 className="text-3xl font-bold">₹ {product?.price}</h1>
                     </div>
                     <button
                       className="bg-primary text-white p-2 rounded-md"
@@ -225,130 +227,133 @@ export default function Product({ params }) {
                     </div>
                   </div>
                 </div>
-                {product?.inStock===true?(<div className="flex flex-col gap-2">
-                  <div className="flex gap-4">
-                    {/* add to cart */}
-                    <button
+                {product?.inStock === true ? (
+                  <div className="flex flex-col gap-2">
+                    <div className="flex gap-4">
+                      {/* add to cart */}
+                      <button
                         className="w-[60%] flex justify-center items-center gap-2 bg-black text-white px-4 py-4 rounded-md"
                         onClick={() => {
                           if (cart.isItemAdded) {
                             cart.removeFromCart(product);
-                            toast.info("Removed from cart", { autoClose: 1000 });
+                            toast.info("Removed from cart", {
+                              autoClose: 1000,
+                            });
                           } else {
                             cart.addToCart(product);
                             toast.success("Added to cart", { autoClose: 1000 });
                           }
                         }}
-                    >
-                      <ShoppingBag size={20} />
-                      <h1 className="">
-                        {cart.isItemAdded ? "Remove From Cart" : "Add To Cart"}
-                      </h1>
-                    </button>
-                    {/* buy now */}
-                    <button
+                      >
+                        <ShoppingBag size={20} />
+                        <h1 className="">
+                          {cart.isItemAdded
+                            ? "Remove From Cart"
+                            : "Add To Cart"}
+                        </h1>
+                      </button>
+                      {/* buy now */}
+                      <button
                         className="w-[40%] flex justify-center items-center gap-2 bg-primary text-white px-4 py-4 rounded-md"
                         onClick={() => {
                           if (cart.isItemAdded) {
-                            router.push('/cart')
+                            router.push("/cart");
                             // cart.removeFromCart(product);
                             // toast.info("Removed from cart", { autoClose: 3000 });
                           } else {
                             cart.addToCart(product);
-                            router.push('/cart')
+                            router.push("/cart");
                           }
                         }}
-                    >
-                      <TicketCheck size={20} />
-                      <h1 className="">
-                        Buy Now
-                      </h1>
-                    </button>
-                    {/* <button className="w-[20%] sm:w-[10%] flex justify-center items-center gap-2 bg-red-500 text-white px-4 py-4 rounded-md">
+                      >
+                        <TicketCheck size={20} />
+                        <h1 className="">Buy Now</h1>
+                      </button>
+                      {/* <button className="w-[20%] sm:w-[10%] flex justify-center items-center gap-2 bg-red-500 text-white px-4 py-4 rounded-md">
                       <Heart size={25} />
                     </button> */}
-                  </div>
-                  <div className="flex items-center gap-2 justify-center">
-                    <Truck size={20} className="text-gray-500" />
-                    <h1 className=" text-sm">
-                      Free Delivery on order over ₹1000
-                    </h1>
-                  </div>
-                </div>): (
-                    <div className="flex flex-col gap-2">
-                      <div className="flex gap-4">
-                        {/* add to cart */}
-                        <button
-                            className="w-[60%] flex justify-center items-center gap-2 bg-black text-white px-4 py-4 rounded-md cursor-not-allowed"
-                            title="Currently Out of Stock"
-                            // onClick={() => {
-                            //   if (cart.isItemAdded) {
-                            //     cart.removeFromCart(product);
-                            //     toast.info("Removed from cart", {autoClose: 1000});
-                            //   } else {
-                            //     cart.addToCart(product);
-                            //     toast.success("Added to cart", {autoClose: 1000});
-                            //   }
-                            // }}
-                        >
-                          <ShoppingBag size={20}/>
-                          <h1 className="">
-                            {cart.isItemAdded ? "Remove From Cart" : "Add To Cart"}
-                          </h1>
-                        </button>
-                        {/* buy now */}
-                        <button
-                            className="w-[40%] flex justify-center items-center gap-2 bg-primary text-white px-4 py-4 rounded-md cursor-not-allowed"
-                            title="Currently Out of Stock"
-                            // onClick={() => {
-                            //   if (cart.isItemAdded) {
-                            //     router.push('/cart')
-                            //     // cart.removeFromCart(product);
-                            //     // toast.info("Removed from cart", { autoClose: 3000 });
-                            //   } else {
-                            //     cart.addToCart(product);
-                            //     router.push('/cart')
-                            //   }
-                            // }}
-                        >
-                          <TicketCheck size={20}/>
-                          <h1 className="">
-                            Buy Now
-                          </h1>
-                        </button>
-                        {/* <button className="w-[20%] sm:w-[10%] flex justify-center items-center gap-2 bg-red-500 text-white px-4 py-4 rounded-md">
-                      <Heart size={25} />
-                    </button> */}
-                      </div>
-                      <div className="flex items-center gap-2 justify-center">
-                        <Truck size={20} className="text-gray-500"/>
-                        <h1 className="text-xl text-red-600">
-                          Currently Out of Stock
-                        </h1>
-                      </div>
                     </div>
+                    <div className="flex items-center gap-2 justify-center">
+                      <Truck size={20} className="text-gray-500" />
+                      <h1 className=" text-sm">
+                        Free Delivery on order over ₹1000
+                      </h1>
+                    </div>
+                  </div>
+                ) : (
+                  <div className="flex flex-col gap-2">
+                    <div className="flex gap-4">
+                      {/* add to cart */}
+                      <button
+                        className="w-[60%] flex justify-center items-center gap-2 bg-black text-white px-4 py-4 rounded-md cursor-not-allowed"
+                        title="Currently Out of Stock"
+                        // onClick={() => {
+                        //   if (cart.isItemAdded) {
+                        //     cart.removeFromCart(product);
+                        //     toast.info("Removed from cart", {autoClose: 1000});
+                        //   } else {
+                        //     cart.addToCart(product);
+                        //     toast.success("Added to cart", {autoClose: 1000});
+                        //   }
+                        // }}
+                      >
+                        <ShoppingBag size={20} />
+                        <h1 className="">
+                          {cart.isItemAdded
+                            ? "Remove From Cart"
+                            : "Add To Cart"}
+                        </h1>
+                      </button>
+                      {/* buy now */}
+                      <button
+                        className="w-[40%] flex justify-center items-center gap-2 bg-primary text-white px-4 py-4 rounded-md cursor-not-allowed"
+                        title="Currently Out of Stock"
+                        // onClick={() => {
+                        //   if (cart.isItemAdded) {
+                        //     router.push('/cart')
+                        //     // cart.removeFromCart(product);
+                        //     // toast.info("Removed from cart", { autoClose: 3000 });
+                        //   } else {
+                        //     cart.addToCart(product);
+                        //     router.push('/cart')
+                        //   }
+                        // }}
+                      >
+                        <TicketCheck size={20} />
+                        <h1 className="">Buy Now</h1>
+                      </button>
+                      {/* <button className="w-[20%] sm:w-[10%] flex justify-center items-center gap-2 bg-red-500 text-white px-4 py-4 rounded-md">
+                      <Heart size={25} />
+                    </button> */}
+                    </div>
+                    <div className="flex items-center gap-2 justify-center">
+                      <Truck size={20} className="text-gray-500" />
+                      <h1 className="text-xl text-red-600">
+                        Currently Out of Stock
+                      </h1>
+                    </div>
+                  </div>
                 )}
               </div>
             </div>
-            <Reviews product={product}/>
+            <Reviews product={product} />
             {showDetails && (
-                <div
-                    className="fixed flex justify-center items-center z-50 p-4 inset-0  backdrop-blur-sm backdrop-brightness-50 rounded-md">
-                  <div className="p-6 flex flex-col gap-3 justify-center bg-white modal">
-                    <div className="flex justify-between">
-                      <div className="flex">
-                        <h1 className="text-2xl font-bold">Product Details</h1>
-                      </div>
-                      <div className="flex">
-                        <X
-                            size={35}
-                            className="hover:bg-primary rounded-full hover:text-white duration-300 transform-all p-2 cursor-pointer"
-                            onClick={() => setShowDetails(false)}
-                        />
-                      </div>
+              <div className="fixed flex justify-center items-center z-40 p-4 inset-0  backdrop-blur-sm backdrop-brightness-50 rounded-md">
+                <div className="p-6 flex flex-col gap-3 justify-center bg-white modal">
+                  <div className="flex justify-between">
+                    <div className="flex">
+                      <h1 className="text-2xl font-bold">Product Details</h1>
                     </div>
-                    <table className="max-w-5xl">
-                      <thead className="mb-4">
+                    <div className="flex">
+                      <X
+                        size={35}
+                        className="hover:bg-primary rounded-full hover:text-white duration-300 transform-all p-2 cursor-pointer"
+                        onClick={() => setShowDetails(false)}
+                      />
+                    </div>
+                  </div>
+                  <table className="max-w-5xl">
+                    <thead className="mb-4">
                       <tr>
                         <th className="py-2 px-4  bg-primary backdrop-brightness-75 text-white ">
                           Features
@@ -357,8 +362,8 @@ export default function Product({ params }) {
                           Details
                         </th>
                       </tr>
-                      </thead>
-                      <tbody>
+                    </thead>
+                    <tbody>
                       <tr>
                         <td className="py-2 px-4  font-semibold bg-[#f5f5f5] w-[50%]">
                           Title
@@ -490,11 +495,11 @@ const offers = [
   },
 ];
 const colors = {
-  "Red": "#FF0000",
-  "Blue": "#0000FF",
-  "Black": "#000000",
-  "Grey": "#808080",
+  Red: "#FF0000",
+  Blue: "#0000FF",
+  Black: "#000000",
+  Grey: "#808080",
   "Hutch Blue": "#004F98",
   "Royal Blue": "#4169E1",
-  "Navy Blue": "#000080"
+  "Navy Blue": "#000080",
 };

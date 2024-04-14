@@ -26,19 +26,19 @@ const TeaserSection = ({ data }) => {
           </div>
           <div className="flex different relative">
             <div
-              className="flex justify-center absolute w-full top-[-5rem] mt-8 sm:mt-6 text-[4rem] sm:text-[6rem] z-50"
+              className="flex justify-center absolute w-full top-[-5rem] mt-8 sm:mt-6 text-[4rem] sm:text-[6rem] z-40"
               style={{
                 opacity: 0.05,
               }}
             >
               Top&nbsp;Trending
             </div>
-            <div className="text-[2.5rem] mt-[2rem] sm:mt-[4rem] z-50">
+            <div className="text-[2.5rem] mt-[2rem] sm:mt-[4rem] z-40">
               Best Seller Product
             </div>
           </div>
           <div className="flex sm:px-[4rem] flex-wrap gap-10 justify-center">
-            {data?.slice(0,4).map((item) => (
+            {data?.slice(0, 4).map((item) => (
               <div
                 className="flex flex-col gap-2 p-2 rounded-xl w-[16.5rem] h-[26rem]"
                 key={item.id}
@@ -47,15 +47,14 @@ const TeaserSection = ({ data }) => {
                   <div className="flex justify-center h-[15rem]">
                     <Image
                       src={item.url[0]}
-                      // src="https://drive.google.com/file/d/1Pdo01w1Y_Bc68w12drjhTfYOL9RIzvIB/view?usp=drive_link" 
+                      // src="https://drive.google.com/file/d/1Pdo01w1Y_Bc68w12drjhTfYOL9RIzvIB/view?usp=drive_link"
                       // works for react
-
 
                       // src="https://drive.google.com/uc?export=view&id=1Pdo01w1Y_Bc68w12drjhTfYOL9RIzvIB"
                       // works for next
 
                       alt={item.title}
-                      className="rounded-xl object-cover w-[15rem] hover:scale-105 cursor-pointer transform-all duration-300"
+                      className="rounded-xl object-contain w-[15rem] hover:scale-105 cursor-pointer transform-all duration-300"
                       width={300}
                       height={300}
                     />
@@ -86,9 +85,12 @@ const TeaserSection = ({ data }) => {
             ))}
           </div>
           <div className="flex justify-center">
-          <button className="bg-secondary w-[11rem] text-white p-4 rounded-2xl"
-          onClick={()=>router.push("/products-listing")}
-          >See More</button>
+            <button
+              className="bg-secondary w-[11rem] text-white p-4 rounded-2xl"
+              onClick={() => router.push("/products-listing")}
+            >
+              See More
+            </button>
           </div>
           <div className="flex justify-center mt-[3rem]">
             {/* {!showAll ? (

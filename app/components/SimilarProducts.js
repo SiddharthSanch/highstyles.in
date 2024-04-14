@@ -14,12 +14,15 @@ export default function SimilarProducts() {
     try {
       // const response = await fetch("/api/products/get-random");
       // const result = await response.json();
-      const {data:response,error}=await supabase.from("Products").select("*").order('id', {ascending: true});
-      if(error) return;
+      const { data: response, error } = await supabase
+        .from("Products")
+        .select("*")
+        .order("id", { ascending: true });
+      if (error) return;
       const result = response;
       if (result) {
         setProducts(result);
-        console.log(result)
+        console.log(result);
         return;
       }
       setProducts([]);
@@ -35,21 +38,20 @@ export default function SimilarProducts() {
 
   return (
     <>
-      {/* <div className="border-b py-1 flex" /> */}
       <div className="max-w-[1200px] mx-auto mt-[4rem]">
-      <div className="flex different relative">
-        <div
-          className="flex justify-center absolute w-full top-[-5rem] mt-4 text-4xl sm:text-[5rem] z-50"
-          style={{
-            opacity: 0.2,
-          }}
-        >
-          <h1>Similar Items</h1>
+        <div className="flex different relative">
+          <div
+            className="flex justify-center absolute w-full top-[-5rem] mt-4 text-4xl sm:text-[5rem] z-40"
+            style={{
+              opacity: 0.2,
+            }}
+          >
+            <h1>Similar Items</h1>
+          </div>
         </div>
-      </div>
         {products.length > 0 ? (
           <div className="flex flex-wrap gap-10 justify-center mt-[5rem]">
-            {products?.slice(0,4)?.map((item) => (
+            {products?.slice(0, 4)?.map((item) => (
               <div
                 className="flex flex-col gap-2 p-2 rounded-xl w-[16.5rem] min-h-[26rem]"
                 key={item.id}
@@ -59,7 +61,7 @@ export default function SimilarProducts() {
                     <Image
                       src={item.url[0]}
                       alt={item.title}
-                      className="rounded-xl object-cover w-[15rem] brightness-75 hover:brightness-100 hover:scale-105 cursor-pointer transform-all duration-300"
+                      className="rounded-xl object-contain w-[15rem] brightness-75 hover:brightness-100 hover:scale-105 cursor-pointer transform-all duration-300"
                       width={200}
                       height={200}
                     />
@@ -71,14 +73,14 @@ export default function SimilarProducts() {
                       {item.title}
                     </h1>
                     <h1 className="line-through text-sm text-lightText">
-                      ₹{((item.price * 1.2)).toFixed(2)}
+                      ₹{(item.price * 1.2).toFixed(2)}
                     </h1>
                   </div>
                   <div className="flex justify-center mt-3 mb-3">
                     <hr className="w-[80%] h-[0.15rem] bg-secondary border-0 rounded" />
                   </div>
                   <div className="flex">
-                    <h1>₹{(item.price).toFixed(2)}</h1>
+                    <h1>₹{item.price.toFixed(2)}</h1>
                   </div>
                   <div className="flex" title={item.description}>
                     <h1 className="text-sm line-clamp-4 text-lightText">

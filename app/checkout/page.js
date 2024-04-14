@@ -16,7 +16,7 @@ import Image from "next/image";
 import { Home, SquarePen, Users2, Waypoints } from "lucide-react";
 import { supabase } from "@/utils/supabase";
 import { toastsettings } from "@/utils/toast";
-import {  generateOrderID } from "@/utils/createdId";
+import { generateOrderID } from "@/utils/createdId";
 import { useAppState } from "@/utils/Context";
 
 export default function Checkout() {
@@ -38,38 +38,40 @@ export default function Checkout() {
   const [userObject, setUserObject] = useState([]);
   const [paymentSuccessObject, setPaymentSuccessObject] = useState([]);
   const { discount, setDiscount } = useAppState();
-  const [lastOrderID, setLastOrderID] = useState(0)
+  const [lastOrderID, setLastOrderID] = useState(0);
   useEffect(() => {
     async function fetchCouponData() {
-      const { data, error } = await supabase.from("Coupons").select().eq("coupon_code", codeByParam);
+      const { data, error } = await supabase
+        .from("Coupons")
+        .select()
+        .eq("coupon_code", codeByParam);
       if (error) {
         console.error("Error fetching coupon data:", error.message);
         return;
       }
       if (data.length > 0) {
-        if(data[0].percentage_discount===true){
+        if (data[0].percentage_discount === true) {
           // if(data[0].discount_value>cart.cartTotal()){
           //   toast.error("Coupon Not Applied",toastsettings)
           //   return;
           // }
           // toast.success("Coupon Applied",toastsettings)
           // setCouponApplied(true)
-          const value=cart.cartTotal()*(data[0].percentage/100)
-          console.log(value)
-          setDiscount(value)
+          const value = cart.cartTotal() * (data[0].percentage / 100);
+          console.log(value);
+          setDiscount(value);
           // setCouponData(data)
           // setTimeout(() => {
           //   setCouponModal(false)
           // }, 1500);
-        }
-        else{
-          if(data[0].discount_value>cart.cartTotal()){
+        } else {
+          if (data[0].discount_value > cart.cartTotal()) {
             // toast.error("Coupon Not Applied",toastsettings)
             return;
           }
           // toast.success("Coupon Applied",toastsettings)
           // setCouponApplied(true)
-          setDiscount(data[0].discount_value)
+          setDiscount(data[0].discount_value);
           // setCouponData(data)
           // setTimeout(() => {
           //   setCouponModal(false)
@@ -78,7 +80,7 @@ export default function Checkout() {
       }
     }
     fetchCouponData();
-  },[])
+  }, []);
   const updateCouponCount = async () => {
     try {
       const { data, error } = await supabase
@@ -133,28 +135,28 @@ export default function Checkout() {
     async function getLastRecordId() {
       try {
         const { data, error } = await supabase
-          .from('Orders')
-          .select('id')
-          .order('id', { ascending: false })
+          .from("Orders")
+          .select("id")
+          .order("id", { ascending: false })
           .limit(1);
         if (error) {
           throw error;
         }
         if (data.length > 0) {
           // return data[0].id;
-          setLastOrderID(data[0].id)
-          console.log(data[0].id)
+          setLastOrderID(data[0].id);
+          console.log(data[0].id);
         } else {
           // return null;
-          setLastOrderID(0)
+          setLastOrderID(0);
         }
       } catch (error) {
-        console.error('Error fetching last record ID:', error.message);
+        console.error("Error fetching last record ID:", error.message);
         return null;
       }
     }
     getLastRecordId();
-  },[])
+  }, []);
   useEffect(() => {
     const getAdddress = async () => {
       const { data, error } = await supabase
@@ -193,7 +195,7 @@ export default function Checkout() {
         phone: userObject.phone,
         status: "Order Placed",
         orderNumber: generateOrderID(),
-        invoiceNumber:`HS_Invoice_${lastOrderID+1}`,
+        invoiceNumber: `HS_Invoice_${lastOrderID + 1}`,
         rzp_paymentId: response?.razorpay_payment_id,
         rzp_orderID: response?.razorpay_order_id,
         razorpay_signature: response?.razorpay_signature,
@@ -229,7 +231,7 @@ export default function Checkout() {
     console.log(data);
     var options = {
       key: process.env.NEXT_PUBLIC_TEST_KEY_ID,
-      name: "Arin Paliwal",
+      name: "Highstyles",
       currency: data.currency,
       amount: data.amount,
       order_id: data.id,
@@ -323,18 +325,17 @@ export default function Checkout() {
               </div>
             </div>
             <div className="flex flex-col gap-4">
-              
               <div className="flex flex-col gap-1">
                 <div className="flex justify-between">
                   <h1 className="text-gray-500">Total Amount</h1>
                   <h1 className="">₹{cart.cartTotal()}</h1>
                 </div>
-                {discount>0 && 
-                      <div className="flex justify-between">
-                        <h1 className="text-gray-500">Coupon Discount</h1>
-                        <h1 className="">- ₹{discount}</h1>
-                      </div>
-                      }
+                {discount > 0 && (
+                  <div className="flex justify-between">
+                    <h1 className="text-gray-500">Coupon Discount</h1>
+                    <h1 className="">- ₹{discount}</h1>
+                  </div>
+                )}
                 <div className="flex justify-between">
                   <h1 className="text-gray-500">Taxes</h1>
                   <h1 className="">₹{}</h1>
@@ -381,7 +382,7 @@ const CartItemIndividual = ({ product }) => {
               alt={product.title}
               width={100}
               height={100}
-              className="rounded-md object-cover"
+              className="rounded-md object-contain"
             />
           </div>
           <div className="flex flex-col gap-3 justify-between">

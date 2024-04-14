@@ -8,22 +8,24 @@ import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 
 const ProductsListingTable = () => {
-  const id=useParams().id;
-  console.log(id)
+  const id = useParams().id;
+  console.log(id);
   const [data, setData] = useState([]);
   useEffect(() => {
     async function fetchData() {
-      const { data, error } = await supabase.from("Orders").
-      select("order_products").eq('id',id);
+      const { data, error } = await supabase
+        .from("Orders")
+        .select("order_products")
+        .eq("id", id);
       if (error) {
         toast.error(error.message);
         return;
       }
-      const mock_data=data[0].order_products
-      const parsedData = mock_data.map(item => JSON.parse(item));
+      const mock_data = data[0].order_products;
+      const parsedData = mock_data.map((item) => JSON.parse(item));
       setData(parsedData);
       console.log(parsedData);
-      console.log(data[0].order_products)
+      console.log(data[0].order_products);
     }
     fetchData();
   }, []);
@@ -54,14 +56,17 @@ const ProductsListingTable = () => {
       setSearchedData(data);
     }
   }, [searchProduct]);
-  const DeleteItem = async(item) => {
-    const {data,error}=await supabase.from('Products').delete().eq('id',item.id)
-    if(error){
-      toast.error(error.message)
+  const DeleteItem = async (item) => {
+    const { data, error } = await supabase
+      .from("Products")
+      .delete()
+      .eq("id", item.id);
+    if (error) {
+      toast.error(error.message);
       return;
     }
-    toast.success('Product Deleted Successfully')
-  }
+    toast.success("Product Deleted Successfully");
+  };
   return (
     <>
       <div className="rounded-xl w-full border border-stroke px-5 pb-2.5 pt-6 shadow-default dark:border-strokedark dark:bg-boxdark sm:px-7.5 xl:pb-1 overflow-y-auto">
@@ -97,15 +102,14 @@ const ProductsListingTable = () => {
             </thead>
             <tbody>
               {data?.map((item, key) => (
-                <tr
-                  key={key}>
+                <tr key={key}>
                   <td className="flex gap-3 border-b dark:border-gray-500 border-[#eee] px-4 py-5 pl-9 dark:border-strokedark xl:pl-11">
                     <Image
                       src={item.url[0]}
                       width={60}
                       height={60}
                       alt={item.title}
-                      className="rounded-md object-cover h-14"
+                      className="rounded-md object-contain h-14"
                     />
                     <div className="flex flex-col gap-1">
                       <p className="font-medium text-black dark:text-white">
@@ -127,14 +131,16 @@ const ProductsListingTable = () => {
                   </td>
                   <td className="border-b dark:border-gray-500 border-[#eee] px-4 py-5 dark:border-strokedark">
                     <div className="flex items-center space-x-3.5">
-                      <button className="flex gap-2 items-center bg-red-700 text-white p-2 rounded-md"
-                      onClick={() => DeleteItem(item)}
+                      <button
+                        className="flex gap-2 items-center bg-red-700 text-white p-2 rounded-md"
+                        onClick={() => DeleteItem(item)}
                       >
                         <Trash size={20} />
                         <h1>Delete</h1>
                       </button>
-                      <button className="flex gap-2 items-center bg-primary text-white p-2 rounded-md"
-                      onClick={() => onOpenModal(item)}
+                      <button
+                        className="flex gap-2 items-center bg-primary text-white p-2 rounded-md"
+                        onClick={() => onOpenModal(item)}
                       >
                         <FilePenLine size={20} />
                       </button>

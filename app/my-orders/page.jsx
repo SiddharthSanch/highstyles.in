@@ -58,7 +58,7 @@ const MyOrdersPage = () => {
               >
                 Recently&nbsp;Ordered
               </div>
-              <div className="flex justify-center text-gray-500 text-xl mt-[6rem] z-50">
+              <div className="flex justify-center text-gray-500 text-xl mt-[6rem] z-40">
                 Check the status of recent orders, manage returns, and discover
                 similar products.
               </div>
@@ -66,7 +66,10 @@ const MyOrdersPage = () => {
             <div className="flex flex-col gap-[5rem] rounded-md justify-center">
               {response?.map((item, index) => {
                 return (
-                  <div className="flex flex-col gap-[1.5rem] border rounded-md border-gray-300" key={index}>
+                  <div
+                    className="flex flex-col gap-[1.5rem] border rounded-md border-gray-300"
+                    key={index}
+                  >
                     <div className="flex sm:flex-row flex-col justify-between p-4 border-b border-gray-300 items-center">
                       <div className="flex sm:flex-row flex-wrap gap-7 items-center p-4">
                         <div className="flex flex-col gap-1">
@@ -75,7 +78,9 @@ const MyOrdersPage = () => {
                         </div>
                         <div className="flex flex-col gap-1">
                           <h1 className="font-semibold">Invoice Number</h1>
-                          <h1 className="text-gray-500">{item.invoiceNumber}</h1>
+                          <h1 className="text-gray-500">
+                            {item.invoiceNumber}
+                          </h1>
                         </div>
                         <div className="flex flex-col gap-1">
                           <h1 className="font-semibold">Date Ordered</h1>
@@ -205,7 +210,7 @@ const SpecificItem = ({ itemId, status, user }) => {
                   alt={item.title}
                   width={500}
                   height={500}
-                  className="object-cover rounded-md"
+                  className="object-contain rounded-md"
                 />
               </div>
               <div className="flex sm:items-stretch items-center flex-col w-full gap-6 p-6 sm:ml-[3rem]">

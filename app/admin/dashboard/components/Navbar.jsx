@@ -21,7 +21,7 @@ const Navbar = () => {
           />
           <h1 className="font-semibold text-2xl">Admin Portal</h1>
         </div>
-        
+
         <div className="flex items-center gap-6 z-50">
           <DropdownUser />
         </div>

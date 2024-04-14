@@ -552,14 +552,16 @@ const page = () => {
                         <div className="flex h-full w-full flex-col-reverse text-gray-600 md:flex-row justify-between">
                           <div className="w-[60%] flex flex-col justify-between">
                             <div className="flex w-[60%] flex-col md:flex-row">
-                              <h2 className="mb-2 line-clamp-2 text-2xl font-black"
-                              title={item.title}
+                              <h2
+                                className="mb-2 line-clamp-2 text-2xl font-black"
+                                title={item.title}
                               >
                                 {item.title}
                               </h2>
                             </div>
-                            <p className="mt-3 w-[60%] line-clamp-3 font-sans text-base tracking-normal"
-                            title={item.description}
+                            <p
+                              className="mt-3 w-[60%] line-clamp-3 font-sans text-base tracking-normal"
+                              title={item.description}
                             >
                               {item.description}
                             </p>
@@ -620,8 +622,8 @@ const page = () => {
                             >
                               {item?.url?.[0] && (
                                 <Image
-                                  className="p-3 block object-cover max-h-[20rem] max-w-full rounded-md"
-                                  src={item.url[0]?item.url[0]:placeholder}
+                                  className="p-3 block object-contain max-h-[20rem] max-w-full rounded-md"
+                                  src={item.url[0] ? item.url[0] : placeholder}
                                   alt={item.title}
                                   width={300}
                                   height={300}
