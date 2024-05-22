@@ -3,8 +3,10 @@ import Image from "next/image";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import Loader from "./Loader";
+import { useRouter } from "next/navigation";
 
 const TeaserSection = ({ data }) => {
+  const router=useRouter()
   const [loading, setLoading] = useState(true);
   useEffect(() => {
     console.log("products", data);
@@ -26,7 +28,7 @@ const TeaserSection = ({ data }) => {
           </div>
           <div className="flex different relative">
             <div
-              className="flex justify-center absolute w-full top-[-5rem] mt-8 sm:mt-6 text-[4rem] sm:text-[6rem] z-40"
+              className="flex justify-center absolute w-full top-[-5rem] mt-8 sm:mt-6 text-[3rem] sm:text-[6rem] z-40"
               style={{
                 opacity: 0.05,
               }}
@@ -54,7 +56,7 @@ const TeaserSection = ({ data }) => {
                       // works for next
 
                       alt={item.title}
-                      className="rounded-xl object-contain w-[15rem] hover:scale-105 cursor-pointer transform-all duration-300"
+                      className="rounded-xl object-contain hover:scale-110 cursor-pointer transform-all duration-300"
                       width={300}
                       height={300}
                     />
@@ -66,7 +68,7 @@ const TeaserSection = ({ data }) => {
                       {item.title}
                     </h1>
                     <h1 className="line-through text-sm text-lightText">
-                      ₹{item.price}
+                      ₹{item.mrp}
                     </h1>
                   </div>
                   <div className="flex justify-center mt-3 mb-3">
@@ -76,7 +78,7 @@ const TeaserSection = ({ data }) => {
                     <h1>₹{item.price}</h1>
                   </div>
                   <div className="flex" title={item.description}>
-                    <h1 className="text-sm line-clamp-4 text-lightText">
+                    <h1 className="text-sm line-clamp-2 text-lightText">
                       {item.description}
                     </h1>
                   </div>

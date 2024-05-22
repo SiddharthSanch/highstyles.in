@@ -17,7 +17,8 @@ export default function SimilarProducts() {
       const { data: response, error } = await supabase
         .from("Products")
         .select("*")
-        .order("id", { ascending: true });
+        .order("id", { ascending: true })
+        .limit(4);
       if (error) return;
       const result = response;
       if (result) {
@@ -38,6 +39,7 @@ export default function SimilarProducts() {
 
   return (
     <>
+      {/* <div className="border-b py-1 flex" /> */}
       <div className="max-w-[1200px] mx-auto mt-[4rem]">
         <div className="flex different relative">
           <div
@@ -61,7 +63,7 @@ export default function SimilarProducts() {
                     <Image
                       src={item.url[0]}
                       alt={item.title}
-                      className="rounded-xl object-contain w-[15rem] brightness-75 hover:brightness-100 hover:scale-105 cursor-pointer transform-all duration-300"
+                      className="rounded-xl object-contain hover:scale-110 cursor-pointer transform-all duration-300"
                       width={200}
                       height={200}
                     />

@@ -28,6 +28,9 @@ const AboutUsPage = () => {
                 >
                   About&nbsp;Highstyles.in
                 </div>
+                {/* <div className="text-[2.5rem] mt-[3.5rem] z-40">
+              Best Seller Product
+            </div> */}
               </div>
               <p className="sm:mt-4 text-lg text-gray-600">
                 At Highstyles.in, we're passionate about fashion and dedicated

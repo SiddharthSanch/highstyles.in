@@ -1,7 +1,7 @@
 "use client";
 
 import { supabase } from "@/utils/supabase";
-import { FilePenLine, Trash, X, Check } from "lucide-react";
+import { FilePenLine, Trash } from "lucide-react";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
@@ -98,7 +98,7 @@ const ProductsListingTable = ({ data, onOpenModal }) => {
                       width={60}
                       height={60}
                       alt={item.title}
-                      className="rounded-md object-contain h-14"
+                      className="rounded-md object-cover h-14"
                     />
                     <div className="flex flex-col gap-1">
                       <p className="font-medium text-black dark:text-white max-w-md">
@@ -124,7 +124,7 @@ const ProductsListingTable = ({ data, onOpenModal }) => {
                   <td className="border-b dark:border-gray-500 border-[#eee] px-4 py-5 dark:border-strokedark">
                     <div className="flex items-center space-x-3.5">
                       <button
-                        className="flex gap-2 items-center bg-red-700 text-white p-2 rounded-md"
+                        className="flex gap-2 items-center hover:bg-red-700 hover:text-white border-2 border-red-700 p-2 rounded-md transform duration-300"
                         onClick={() => DeleteItem(item)}
                       >
                         <Trash size={20} />
@@ -139,24 +139,22 @@ const ProductsListingTable = ({ data, onOpenModal }) => {
                     </div>
                   </td>
                   <td className="text-sm border-b dark:border-gray-500 border-[#eee] py-5 dark:border-strokedark">
-                    <button
+                    <div
                       className={`w-full justify-center flex gap-2 items-center ${
-                        item.inStock ? "bg-green-500" : "bg-red-700"
+                        item.quantity_stock > 0 ? "bg-green-500" : "bg-red-700"
                       } text-white p-2 rounded-md`}
-                      onClick={() => handleStock(item)}
+                      // onClick={()=>handleStock(item)}
                     >
-                      {item.inStock ? (
+                      {item.quantity_stock > 0 ? (
                         <>
-                          <h1>In Stock</h1>
-                          <Check size={20} />
+                          <h1>In Stock</h1>{" "}
                         </>
                       ) : (
                         <>
                           <h1>Out of Stock</h1>
-                          <X size={20} />
                         </>
                       )}
-                    </button>
+                    </div>
                   </td>
                 </tr>
               ))}

@@ -30,6 +30,7 @@ const page = () => {
   const [sortBy, setSortBy] = useState("id");
   const [amountFilter, setAmountFilter] = useState("Select Amount");
   const [selectedColors, setSelectedColors] = useState([]);
+  const [selectedCategories, setSelectedCategories] = useState([]);
   const [selectedGender, setSelectedGender] = useState("All");
   const [selectedYear, setSelectedYear] = useState("All");
   const [ratingFilter, setRatingFilter] = useState([]);
@@ -167,6 +168,12 @@ const page = () => {
       );
     }
 
+    if (selectedCategories.length) {
+      filteredData = filteredData.filter((item) =>
+        selectedCategories.some((category) => item.category.includes(category))
+      );
+    }
+
     if (selectedGender !== "All") {
       filteredData = filteredData.filter(
         (item) => item.for_gender === selectedGender
@@ -188,6 +195,7 @@ const page = () => {
 
     setData(filteredData);
   };
+  // for searching the product
   useEffect(() => {
     if (searchProduct) {
       const filteredData = data.filter((item) => {
@@ -199,7 +207,9 @@ const page = () => {
       setSearchedData(data);
     }
   }, [searchProduct]);
-
+  useEffect(() => {
+    console.log(selectedCategories)
+  },[selectedCategories])
   return (
     <ClientOnly>
       {loading ? (
@@ -288,6 +298,32 @@ const page = () => {
                         }}
                       >
                         {color.name}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+                <div className="flex flex-col gap-[1rem]">
+                  <div className="flex text-gray-500">Select Categories</div>
+                  <div className="flex flex-wrap gap-2">
+                    {categories?.map((category) => (
+                      <button
+                        className={`p-2 hover:bg-gray-300 transform-all duration-300 rounded-2xl border border-gray-400 ${
+                          selectedCategories.includes(category.name)
+                            ? "bg-gray-300"
+                            : "bg-white"
+                        }`}
+                        key={category.id}
+                        onClick={() => {
+                          setSelectedCategories((prevSelectedCategories) =>
+                            prevSelectedCategories.includes(category.name)
+                              ? prevSelectedCategories.filter(
+                                  (item) => item !== category.name
+                                )
+                              : [...prevSelectedCategories, category.name]
+                          );
+                        }}
+                      >
+                        {category.name}
                       </button>
                     ))}
                   </div>
@@ -542,41 +578,75 @@ const page = () => {
                     </div>
                   </div>
                 </div>
-                <div className="flex flex-col gap-6">
+                <div className="flex flex-wrap gap-2">
                   {searchedData?.map((item, index) => {
                     return (
-                      <div
-                        className="rounded-md h-[25rem] p-[2rem] flex flex-col border border-gray-200 text-gray-600"
-                        key={index}
-                      >
-                        <div className="flex h-full w-full flex-col-reverse text-gray-600 md:flex-row justify-between">
-                          <div className="w-[60%] flex flex-col justify-between">
-                            <div className="flex w-[60%] flex-col md:flex-row">
-                              <h2
-                                className="mb-2 line-clamp-2 text-2xl font-black"
-                                title={item.title}
-                              >
-                                {item.title}
-                              </h2>
+                      <>
+                        {/* 1st for web */}
+                        <div
+                          className="rounded-md w-[30rem] max-h-[22rem] p-[1rem] hidden sm:flex flex-wrap border border-gray-200 text-gray-600"
+                          key={index}
+                        >
+                          <div className="flex flex-col gap-4">
+                            <div className="flex w-full text-gray-600 flex-row items-center">
+                              <div className="flex flex-col w-[60%]">
+                                <div className="flex flex-col md:flex-row">
+                                  <h2
+                                    className="mb-2 line-clamp-2 text-xl font-black"
+                                    title={item.title}
+                                  >
+                                    {item.title}
+                                  </h2>
+                                </div>
+                                <p
+                                  className="mt-3 line-clamp-2 font-sans text-base tracking-normal"
+                                  title={item.description}
+                                >
+                                  {item.description}
+                                </p>
+                                <div className="flex flex-col md:flex-row md:items-end">
+                                  <p className="mt-6 text-2xl sm:text-4xl font-black">
+                                    ₹{item.price}
+                                    <sup className="align-super text-sm">
+                                      {item.id}
+                                    </sup>
+                                  </p>
+                                  <span className="ml-2 text-xs uppercase">
+                                    {item.SKU}
+                                  </span>
+                                </div>
+                                <div className="flex" title="Per Day Use">
+                                  <h1 className="text-gray-700">
+                                    ₹
+                                    {(
+                                      item.usage_time_days / item.price
+                                    ).toFixed(2)}
+                                    /day
+                                  </h1>
+                                </div>
+                              </div>
+                              <div className="flex sm:flex-row flex-col-reverse gap-4 w-[40%]">
+                                <div
+                                  className="flex cursor-pointer items-center justify-center"
+                                  onClick={() =>
+                                    router.push("/product/" + item.id)
+                                  }
+                                >
+                                  {item?.url?.[0] && (
+                                    <Image
+                                      className="p-3 block object-contain max-h-[16rem] max-w-full rounded-md"
+                                      src={
+                                        item.url[0] ? item.url[0] : placeholder
+                                      }
+                                      alt="Image Unavailable"
+                                      width={300}
+                                      height={300}
+                                    />
+                                  )}
+                                </div>
+                              </div>
                             </div>
-                            <p
-                              className="mt-3 w-[60%] line-clamp-3 font-sans text-base tracking-normal"
-                              title={item.description}
-                            >
-                              {item.description}
-                            </p>
-                            <div className="flex flex-col md:flex-row md:items-end">
-                              <p className="mt-6 text-2xl sm:text-4xl font-black">
-                                ₹{item.price}
-                                <sup className="align-super text-sm">
-                                  {item.id}
-                                </sup>
-                              </p>
-                              <span className="ml-2 text-xs uppercase">
-                                {item.SKU}
-                              </span>
-                            </div>
-                            <div className="mt-8 flex flex-col sm:flex-row">
+                            <div className="flex flex-col sm:flex-row">
                               <button
                                 className="mr-2 mb-4 flex cursor-pointer items-center justify-center rounded-md bg-primary py-2 px-8 text-center text-white transform-all duration-500  hover:bg-secondary"
                                 onClick={() =>
@@ -609,30 +679,54 @@ const page = () => {
                               </button>
                             </div>
                           </div>
-                          <div className="w-[40%] flex sm:flex-row flex-col-reverse gap-4">
-                            <div className="flex flex-col items-center sm:mt-[1.3rem]">
-                              <StarRating rating={item.rating} />
-                              <span className="mt-2 text-xs uppercase">
-                                {item.rating} Rating
-                              </span>
+                        </div>
+                        <div
+                          className="rounded-md min-h-[25rem] p-[2rem] sm:hidden flex flex-col gap-2 border border-gray-200 text-gray-600"
+                          key={index}
+                        >
+                          <div className="flex justify-between items-center">
+                            <StarRating rating={item.rating} />
+                            <h1 className="text-gray-600">{item.SKU}</h1>
+                          </div>
+                          <div className="flex max-h-[60%] justify-center">
+                            <Image
+                              src={item.url[0] ? item.url[0] : placeholder}
+                              alt={item.title}
+                              width={150}
+                              height={150}
+                              className="object-cover"
+                            />
+                          </div>
+                          <div className="flex">
+                            <h1 className="line-clamp-2 font-bold">
+                              {item.title}
+                            </h1>
+                          </div>
+                          <div className="flex">
+                            <h1 className="line-clamp-1">{item.description}</h1>
+                          </div>
+                          <div className="flex justify-between items-center">
+                            <div className="flex flex-col p-2">
+                              <h1 className="text-gray-500 text-sm line-through">
+                                ₹{item.mrp}
+                              </h1>
+                              <h1 className="font-bold text-xl">
+                                ₹{item.price}
+                              </h1>
                             </div>
-                            <div
-                              className="flex cursor-pointer items-center justify-center"
-                              onClick={() => router.push("/product/" + item.id)}
-                            >
-                              {item?.url?.[0] && (
-                                <Image
-                                  className="p-3 block object-contain max-h-[20rem] max-w-full rounded-md"
-                                  src={item.url[0] ? item.url[0] : placeholder}
-                                  alt={item.title}
-                                  width={300}
-                                  height={300}
-                                />
-                              )}
+                            <div className="flex">
+                              <button
+                                className="p-2 flex justify-center items-center rounded-md bg-primary text-white"
+                                onClick={() =>
+                                  router.push("/product/" + item.id)
+                                }
+                              >
+                                View Product
+                              </button>
                             </div>
                           </div>
                         </div>
-                      </div>
+                      </>
                     );
                   })}
                 </div>
@@ -676,4 +770,14 @@ const years = [
   { id: 2, name: 2023 },
   { id: 3, name: 2022 },
   { id: 4, name: 2021 },
+];
+const categories = [
+  { id: 1, name: "Backpacks" },
+  { id: 2, name: "Travel Bags" },
+  { id: 3, name: "Handbags" },
+  { id: 4, name: "Casual Bags" },
+  { id: 5, name: "Sidebags" },
+  { id: 6, name: "Wallets" },
+  { id: 7, name: "Laptops Bags" },
+  { id: 8, name: "Prefume" },
 ];

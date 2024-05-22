@@ -28,8 +28,8 @@ export default function Home() {
   const [phone, setPhone] = useState("");
   const [hno, setHno] = useState("");
   // const [street, setStreet] = useState("");
-  const [block_number, setblock_number] = useState("");
-  const [apartment, setApartment] = useState("");
+  const [Block_Number, setblock_number] = useState("");
+  const [Apartment, setApartment] = useState("");
   const [locality, setLocality] = useState("");
   const [landmark, setLandmark] = useState("");
   const [country, setCountry] = useState("");
@@ -95,8 +95,8 @@ export default function Home() {
             state,
             zipcode,
             addressTitle,
-            apartment,
-            block_number
+            Apartment,
+            Block_Number
           },
         ]).eq("uid",user?.id)
         ;
@@ -141,8 +141,8 @@ export default function Home() {
             state,
             zipcode,
             addressTitle,
-            apartment,
-            block_number
+            Apartment,
+            Block_Number
           },
         ]);
         if (error) {
@@ -445,7 +445,7 @@ export default function Home() {
                       <div className="flex flex-col">
                         <label>Block Number</label>
                         <input
-                            value={block_number}
+                            value={Block_Number}
                             onChange={(e) => setblock_number(e.target.value)}
                             type="text"
                             className="sm:w-[14.5rem] border p-2 rounded-lg"
@@ -454,7 +454,7 @@ export default function Home() {
                       <div className="flex flex-col">
                         <label>Apartment</label>
                         <input
-                            value={apartment}
+                            value={Apartment}
                             onChange={(e) => setApartment(e.target.value)}
                             type="text"
                             className="sm:w-[14.5rem] border p-2 rounded-lg"

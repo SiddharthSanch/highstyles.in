@@ -10,8 +10,8 @@ import { useRouter } from "next/navigation";
 import { EyeIcon, EyeOffIcon } from "lucide-react";
 const SignIn = () => {
   const router=useRouter()
-  const [email, setEmail] = useState("highstyles.in@gmail.com");
-  const [password, setPassword] = useState("@#admin#@123");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false)
   useEffect(() => {
     localStorage.clear();

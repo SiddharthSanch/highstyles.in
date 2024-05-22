@@ -1,5 +1,5 @@
 "use client";
-import { useState, useEffect } from "react";
+import  { useState, useEffect } from "react";
 import Image from "next/image";
 import img1 from "../../public/productListing/banner_bag_1.jpg";
 import img2 from "../../public/productListing/banner_bag_2.jpg";
@@ -41,15 +41,15 @@ const Banner = () => {
   }, [nextImage]);
 
   return (
-    <div className="flex w-full rounded-xl sm:h-screen justify-center px-[3rem] py-3">
-      <Image
+      <div className="flex w-full rounded-xl sm:h-screen justify-center px-[3rem] py-3">
+        <Image
         width={1500}
         height={1500}
-        src={images[currentImageIndex]}
-        alt="Banner Image"
-        className="rounded-xl brightness-90 transform-all duration-500 w-full object-contain hover:brightness-100 cursor-pointer"
-      />
-    </div>
+          src={images[currentImageIndex]}
+          alt="Banner Image"
+          className="rounded-xl brightness-90 transform-all duration-500 w-full object-cover hover:brightness-100 cursor-pointer"
+        />
+      </div>
   );
 };
 

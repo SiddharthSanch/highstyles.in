@@ -37,19 +37,19 @@ export default function Cart() {
     const istTimestamp = new Date(currentTimestamp + 5.5 * 60 * 60 * 1000);
     const providedTimestamp = new Date(timestamp).getTime();
     if (istTimestamp.getTime() > providedTimestamp) {
-      return false;
+        return false;
     } else {
-      return true;
+        return true;
     }
-  }
+}
   const [loading, setLoading] = useState(true);
   const [paymentSelected, setPaymentSelected] = useState(1);
   const [data, setData] = useState([]);
   const [couponModal, setCouponModal] = useState(false);
-  const [couponName, setCouponName] = useState("");
-  const [couponApplied, setCouponApplied] = useState(false);
-  const [couponData, setCouponData] = useState();
-  const { discount, setDiscount } = useAppState();
+  const [couponName, setCouponName] = useState("")
+  const [couponApplied, setCouponApplied] = useState(false)
+  const [couponData, setCouponData] = useState()
+  const {discount,setDiscount}=useAppState()
   const { user } = useUser();
   const router = useRouter();
   const cart = useCart();
@@ -84,65 +84,66 @@ export default function Cart() {
       toast.error("There are no items in the cart", toastsettings);
       return;
     }
-    if (!data) {
-      toast.error("No Address Found", toastsettings);
+    if(!data){
+      toast.error("No Address Found",toastsettings)
       return;
     }
-    if (couponData)
-      router.push(`/checkout?couponCode=${couponData[0]?.coupon_code}`);
-    else router.push(`/checkout`);
+    if(couponData)
+    router.push(`/checkout?couponCode=${couponData[0]?.coupon_code}`);
+  else
+  router.push(`/checkout`);
   };
-  useEffect(() => {
-    if (couponData) {
-      console.log(couponData[0]);
+  useEffect(()=>{
+    if(couponData){
+      console.log(couponData[0])
     }
-  }, [couponData]);
-  const checkCouponValidity = async () => {
-    const { data, error } = await supabase
-      .from("Coupons")
-      .select("*")
-      .eq("coupon_code", couponName);
-    if (error) {
-      toast.error(error, toastsettings);
+  },[couponData])
+  const checkCouponValidity=async()=>{
+    const {data,error}=await supabase.from("Coupons").select("*").eq("coupon_code",couponName)
+    if(error){
+      toast.error(error,toastsettings);
       return;
     }
-    if (data.length == 0) {
-      toast.error("No Coupon Found", toastsettings);
-    } else {
-      console.log(data);
+    if(data.length==0){
+      toast.error("No Coupon Found",toastsettings)
+    }
+    else{
+      console.log(data)
       // if((isTimestampValid(data.coupon_valid_till))){
       //   toast.error("Coupon Not Applied",toastsettings)
       //   return;
       // }
-      if (data[0].percentage_discount === true) {
+      if(data[0].percentage_discount===true){
         // if(data[0].discount_value>cart.cartTotal()){
         //   toast.error("Coupon Not Applied",toastsettings)
         //   return;
         // }
-        toast.success("Coupon Applied", toastsettings);
-        setCouponApplied(true);
-        const value = cart.cartTotal() * (data[0].percentage / 100);
-        console.log(value);
-        setDiscount(value);
-        setCouponData(data);
+        toast.success("Coupon Applied",toastsettings)
+        setCouponApplied(true)
+        const value=cart.cartTotal()*(data[0].percentage/100)
+        console.log(value)
+        setDiscount(value)
+        setCouponData(data)
         setTimeout(() => {
-          setCouponModal(false);
-        }, 1500);
-      } else {
-        if (data[0].discount_value > cart.cartTotal()) {
-          toast.error("Coupon Not Applied", toastsettings);
-          return;
-        }
-        toast.success("Coupon Applied", toastsettings);
-        setCouponApplied(true);
-        setDiscount(data[0].discount_value);
-        setCouponData(data);
-        setTimeout(() => {
-          setCouponModal(false);
+          setCouponModal(false)
         }, 1500);
       }
+      else{
+        if(data[0].discount_value>cart.cartTotal()){
+          toast.error("Coupon Not Applied",toastsettings)
+          return;
+        }
+        toast.success("Coupon Applied",toastsettings)
+        setCouponApplied(true)
+        setDiscount(data[0].discount_value)
+        setCouponData(data)
+        setTimeout(() => {
+          setCouponModal(false)
+        }, 1500);
+      }
+
     }
-  };
+  }
   return (
     <ClientOnly>
       {loading ? (
@@ -186,12 +187,13 @@ export default function Cart() {
                 <div className="flex items-center justify-between p-5 rounded-md">
                   <div className="flex flex-col gap-1">
                     <div className="flex">
-                      <h1 className="text-l font-bold">Cash on Delivery</h1>
+                      <h1 className="text-l font-bold">
+                        Cash on Delivery
+                      </h1>
                     </div>
                     <div className="flex">
                       <h1 className="text-gray-500 max-w-xl">
-                        Enjoy the convenience of doorstep delivery with our cash
-                        on delivery feature on our shopping website.
+                        Enjoy the convenience of doorstep delivery with our cash on delivery feature on our shopping website.
                       </h1>
                     </div>
                   </div>
@@ -232,8 +234,8 @@ export default function Cart() {
                   <div className="flex justify-between">
                     <h1 className="font-semibold">Address&nbsp;: </h1>
                     <h1 className="text-gray-500 justify-end text-end">
-                      {data?.hno} {data?.House_Number} {data?.Apartment}{" "}
-                      {data?.locality}, {data?.landmark}
+                      {data?.hno} {data?.House_Number} {data?.Apartment} {data?.locality},{" "}
+                      {data?.landmark}
                     </h1>
                   </div>
                   <div className="flex justify-end mt-[-9px]">
@@ -293,27 +295,22 @@ export default function Cart() {
                     </div>
                     <div className="flex justify-between text-xl">
                       <h1 className="text-gray-500">Subtotal</h1>
-                      <h1 className="font-bold">
-                        ₹{cart.cartTotal() - discount}
-                      </h1>
+                        <h1 className="font-bold">₹{cart.cartTotal()-discount}</h1>
                     </div>
                     <hr className="h-[0.15rem] bg-[#f1f1f1] border-0 rounded" />
                     <div className="flex flex-col gap-1">
                       <div className="flex justify-between">
                         <h1 className="text-gray-500">Total Amount</h1>
-                        <h1 className="flex flex-col items-end justify-end">
-                          ₹{cart.cartTotal()}
-                          <h1 className="text-sm text-gray-600">
-                            Inclusive of all taxes
-                          </h1>
+                        <h1 className="flex flex-col items-end justify-end">₹{cart.cartTotal()}
+                        <h1 className="text-sm text-gray-600">Inclusive of all taxes</h1>
                         </h1>
                       </div>
-                      {couponApplied && (
-                        <div className="flex justify-between">
-                          <h1 className="text-gray-500">Coupon Discount</h1>
-                          <h1 className="">₹{discount}</h1>
-                        </div>
-                      )}
+                      {couponApplied && 
+                      <div className="flex justify-between">
+                        <h1 className="text-gray-500">Coupon Discount</h1>
+                        <h1 className="">₹{discount}</h1>
+                      </div>
+                      }
                       <div className="flex justify-between">
                         <h1 className="text-gray-500">Delivery</h1>
                         <h1 className="">FREE</h1>
@@ -339,53 +336,43 @@ export default function Cart() {
             </div>
           </div>
           {couponModal && (
-            <div className="fixed flex justify-center items-center z-40 p-4 inset-0  backdrop-blur-sm backdrop-brightness-50 rounded-md">
+            <div className="fixed flex justify-center items-center z-50 p-4 inset-0  backdrop-blur-sm backdrop-brightness-50 rounded-md">
               <div className="p-[2rem] flex flex-col gap-8 w-[30rem] h-[20rem] bg-white rounded-md">
                 <div className="flex flex-col gap-2">
-                  <div className="flex justify-between items-center">
-                    <div className="flex gap-3 items-center">
-                      <div className="flex items-center">
-                        <FilePlus2 size={20} className="text-gray-600" />
-                      </div>
-                      <div className="flex text-xl">
-                        <h1 className="text-black">Add Coupon</h1>
-                      </div>
+                <div className="flex justify-between items-center">
+                  <div className="flex gap-3 items-center">
+                    <div className="flex items-center">
+                      <FilePlus2 size={20} className="text-gray-600"/>
                     </div>
-                    <div
-                      className="flex p-2 cursor-pointer rounded-full justify-center items-center hover:bg-gray-200 hover:rotate-90 duration-500 transform-all"
-                      onClick={() => setCouponModal(false)}
-                    >
-                      <X size={20} className="text-gray-600" />
+                    <div className="flex text-xl">
+                      <h1 className="text-black">Add Coupon</h1>
                     </div>
                   </div>
-                  <div className="flex">
-                    <h1 className="text-gray-500 text-sm">
-                      Unlock savings galore with our new Coupons Page, where
-                      every click adds to your wallet's delight!
-                    </h1>
+                  <div className="flex p-2 cursor-pointer rounded-full justify-center items-center hover:bg-gray-200 hover:rotate-90 duration-500 transform-all" onClick={()=>setCouponModal(false)}>
+                    <X size={20} className="text-gray-600"/>
                   </div>
                 </div>
+                <div className="flex">
+                  <h1 className="text-gray-500 text-sm">Unlock savings galore with our new Coupons Page, where every click adds to your wallet's delight!</h1>
+                </div>
+                </div>
                 <div className="flex flex-col gap-2">
-                  <label className="text-sm">Coupon Name</label>
+                  <label className="text-sm">
+                    Coupon Name
+                  </label>
                   <input
-                    type="text"
-                    className="bg-gray-100 p-3 rounded-md"
-                    placeholder="Enter Coupon Code"
-                    value={couponName}
-                    onChange={(e) => setCouponName(e.target.value)}
+                  type="text" 
+                  className="bg-gray-100 p-3 rounded-md"
+                  placeholder="Enter Coupon Code"
+                  value={couponName}
+                  onChange={(e)=>setCouponName(e.target.value)}
                   />
                 </div>
                 <div className="flex gap-2 items-center">
-                  <button
-                    className="w-[50%] flex justify-center items-center p-2 rounded-md border"
-                    onClick={() => setCouponModal(false)}
-                  >
+                  <button className="w-[50%] flex justify-center items-center p-2 rounded-md border" onClick={()=>setCouponModal(false)}>
                     Cancel
                   </button>
-                  <button
-                    className="w-[50%] flex justify-center items-center p-2 rounded-md bg-primary text-white"
-                    onClick={checkCouponValidity}
-                  >
+                  <button className="w-[50%] flex justify-center items-center p-2 rounded-md bg-primary text-white" onClick={checkCouponValidity}>
                     Apply
                   </button>
                 </div>
@@ -414,7 +401,7 @@ const CartItemIndividual = ({ product }) => {
               alt={product.title}
               width={100}
               height={100}
-              className="rounded-md hover:scale-105 transform-all duration-500 brightness-90 hover:brightness-100 object-contain"
+              className="rounded-md hover:scale-105 transform-all duration-500 brightness-90 hover:brightness-100 object-cover"
             />
           </div>
           <div className="flex flex-col gap-3 justify-between">

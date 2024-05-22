@@ -7,152 +7,152 @@ import p6 from "../public/testimonials/p-6.jpg";
 import p7 from "../public/testimonials/p-7.jpg";
 import p8 from "../public/testimonials/p-8.jpg";
 import p9 from "../public/testimonials/p-9.jpg";
-
+import default_image from "../public/avatar_testimonial.png"
 export const testimonials = [
   {
     id: 1,
-    name: "Alice Johnson",
+    name: "Divya",
     designation: "Happy Shopper",
     testimonial:
-      "Highstyler has transformed my online shopping experience. The product quality is top-notch, and the customer support is unmatched. I'm proud to be a part of this stylish community.",
-    image: p1,
+      "I love my new backpack! It's incredibly stylish and spacious. Perfect for my daily commute, and the durability is impressive. Definitely worth the investment!",
+    image:default_image,
   },
   {
     id: 2,
-    name: "John Martinez",
+    name: "Aayush",
     designation: "Satisfied Customer",
     testimonial:
-      "Choosing Highstyler was a game-changer for me. The variety of products and seamless shopping experience helped me find everything I needed for my lifestyle.",
-    image: p2,
+      "This backpack exceeded my expectations. The quality is top-notch, and the thoughtful design makes it easy to organize my essentials. Great for both work and weekend adventures.",
+    image:default_image,
   },
   {
     id: 3,
-    name: "Elena Chen",
+    name: "Sachin",
     designation: "Fashion Enthusiast",
     testimonial:
-      "Highstyler's fashion collections are cutting-edge. The user-friendly website and quick delivery have been invaluable in enhancing my wardrobe with the latest trends.",
-    image: p3,
+      "This backpack is a lifesaver for my college days. It holds my laptop, books, and snacks with ease. The build is sturdy, and I appreciate the attention to detail in the design. Two thumbs up!",
+    image:default_image,
   },
   {
     id: 4,
-    name: "Chris Hems",
+    name: "Pratiksha",
     designation: "Secure Shopper",
     testimonial:
-      "I found the cybersecurity measures at Highstyler to be robust and up-to-date. The secure payment options made my online shopping experience worry-free.",
-    image: p4,
+      "I've gone through many backpacks, but this one stands out. The water-resistant feature saved my belongings on a rainy day, and the overall durability has made it my go-to choice for all occasions.",
+    image:default_image,
   },
   {
     id: 5,
-    name: "Sophie Williams",
+    name: "Snehal",
     designation: "Tech Savvy Shopper",
     testimonial:
-      "Highstyler provides a platform for discovering new trends. The AI-driven recommendations are well-curated, and the newsletters keep me informed about the latest styles.",
-    image: p5,
+      "Perfect for outdoor adventures! I recently took it on a hiking trip, and the comfortable straps and well-distributed weight made the journey a breeze. Quality craftsmanship and stylish too!",
+    image:default_image,
   },
   {
     id: 6,
-    name: "Chris Thompson",
+    name: "Harsh",
     designation: "Style Explorer",
     testimonial:
-      "The comprehensive fashion offerings at Highstyler equipped me with the styles needed for my current lifestyle. The community reviews were a great help in making informed choices.",
-    image: p6,
+      "My daughter loves her new backpack for school. It's trendy, and the reinforced zippers give me confidence that it will last the entire school year. Great investment for both style and durability.",
+    image:default_image,
   },
   {
     id: 7,
-    name: "Mia Rodriguez",
-    designation: "Product Enthusiast",
+    name: "Anjali",
+    designation: "Travelling Enthusiast",
     testimonial:
-      "Highstyler's product range extends beyond expectations. The variety and quality have been instrumental in my regular purchases for personal and gifting needs.",
-    image: p7,
+      "As a frequent traveler, this backpack is a must-have. The TSA-friendly design and ample storage make navigating airports a breeze. It's become my reliable travel companion, and I couldn't be happier.",
+    image:default_image,
   },
   {
     id: 8,
-    name: "Samuel Lee",
+    name: "Deepika",
     designation: "Fashion Forward",
     testimonial:
-      "The fashion trends at Highstyler are curated by industry experts. The latest collections challenged my style, and the support from fellow shoppers made the journey enjoyable.",
-    image: p8,
+      "I bought this backpack for my son, and he absolutely loves it. The spacious compartments and the reinforced bottom give me peace of mind knowing it can handle the wear and tear of school life.",
+    image:default_image,
   },
   {
     id: 9,
-    name: "Laura Baker",
+    name: "Karan",
     designation: "Tech-Savvy Shopper",
     testimonial:
-      "Highstyler's e-commerce platform is a must for anyone seeking the latest trends. The shopping experience is user-friendly, and the community camaraderie makes the experience exceptional.",
-    image: p9,
+      "The versatility of this backpack is unmatched. From work to weekend getaways, it adapts effortlessly. The build quality is excellent, and the sleek design always receives compliments. A fantastic purchase!",
+    image:default_image,
   },
 ];
 export const reviews = [
   {
     id: 1,
-    name: "Alice Johnson",
+    name: "Divya",
     designation: "Happy Shopper",
     testimonial:
-      "Highstyler has transformed my online shopping experience. The product quality is top-notch, and the customer support is unmatched. I'm proud to be a part of this stylish community.",
+      "I love my new backpack! It's incredibly stylish and spacious. Perfect for my daily commute, and the durability is impressive. Definitely worth the investment!",
     image: p1,
   },
   {
     id: 2,
-    name: "John Martinez",
+    name: "Aayush",
     designation: "Satisfied Customer",
     testimonial:
-      "Choosing Highstyler was a game-changer for me. The variety of products and seamless shopping experience helped me find everything I needed for my lifestyle.",
+      "This backpack exceeded my expectations. The quality is top-notch, and the thoughtful design makes it easy to organize my essentials. Great for both work and weekend adventures.",
     image: p2,
   },
   {
     id: 3,
-    name: "Elena Chen",
+    name: "Sachin",
     designation: "Fashion Enthusiast",
     testimonial:
-      "Highstyler's fashion collections are cutting-edge. The user-friendly website and quick delivery have been invaluable in enhancing my wardrobe with the latest trends.",
+      "This backpack is a lifesaver for my college days. It holds my laptop, books, and snacks with ease. The build is sturdy, and I appreciate the attention to detail in the design. Two thumbs up!",
     image: p3,
   },
   {
     id: 4,
-    name: "Chris Hems",
+    name: "Pratiksha",
     designation: "Secure Shopper",
     testimonial:
-      "I found the cybersecurity measures at Highstyler to be robust and up-to-date. The secure payment options made my online shopping experience worry-free.",
+      "I've gone through many backpacks, but this one stands out. The water-resistant feature saved my belongings on a rainy day, and the overall durability has made it my go-to choice for all occasions.",
     image: p4,
   },
   {
     id: 5,
-    name: "Sophie Williams",
+    name: "Snehal",
     designation: "Tech Savvy Shopper",
     testimonial:
-      "Highstyler provides a platform for discovering new trends. The AI-driven recommendations are well-curated, and the newsletters keep me informed about the latest styles.",
+      "Perfect for outdoor adventures! I recently took it on a hiking trip, and the comfortable straps and well-distributed weight made the journey a breeze. Quality craftsmanship and stylish too!",
     image: p5,
   },
   {
     id: 6,
-    name: "Chris Thompson",
+    name: "Harsh",
     designation: "Style Explorer",
     testimonial:
-      "The comprehensive fashion offerings at Highstyler equipped me with the styles needed for my current lifestyle. The community reviews were a great help in making informed choices.",
+      "My daughter loves her new backpack for school. It's trendy, and the reinforced zippers give me confidence that it will last the entire school year. Great investment for both style and durability.",
     image: p6,
   },
   {
     id: 7,
-    name: "Mia Rodriguez",
-    designation: "Product Enthusiast",
+    name: "Anjali",
+    designation: "Travelling Enthusiast",
     testimonial:
-      "Highstyler's product range extends beyond expectations. The variety and quality have been instrumental in my regular purchases for personal and gifting needs.",
+      "As a frequent traveler, this backpack is a must-have. The TSA-friendly design and ample storage make navigating airports a breeze. It's become my reliable travel companion, and I couldn't be happier.",
     image: p7,
   },
   {
     id: 8,
-    name: "Samuel Lee",
+    name: "Deepika",
     designation: "Fashion Forward",
     testimonial:
-      "The fashion trends at Highstyler are curated by industry experts. The latest collections challenged my style, and the support from fellow shoppers made the journey enjoyable.",
+      "I bought this backpack for my son, and he absolutely loves it. The spacious compartments and the reinforced bottom give me peace of mind knowing it can handle the wear and tear of school life.",
     image: p8,
   },
   {
     id: 9,
-    name: "Laura Baker",
+    name: "Karan",
     designation: "Tech-Savvy Shopper",
     testimonial:
-      "Highstyler's e-commerce platform is a must for anyone seeking the latest trends. The shopping experience is user-friendly, and the community camaraderie makes the experience exceptional.",
+      "The versatility of this backpack is unmatched. From work to weekend getaways, it adapts effortlessly. The build quality is excellent, and the sleek design always receives compliments. A fantastic purchase!",
     image: p9,
   },
 ];

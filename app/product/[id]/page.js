@@ -12,6 +12,7 @@ import logodummy from "../../../public/logo_dummy.png";
 import {
   Heart,
   Paperclip,
+  Shield,
   ShoppingBag,
   ShoppingCart,
   Star,
@@ -29,6 +30,7 @@ export default function Product({ params }) {
   const cart = useCart();
   const [product, setProduct] = useState({});
   const [loading, setLoading] = useState(true);
+  const [things_covered, setThings_covered] = useState();
   useEffect(() => {
     async function getProduct() {
       // useIsLoading(true);
@@ -37,6 +39,7 @@ export default function Product({ params }) {
       const response = await fetch(`/api/product/${params.id}`);
       const prod = await response.json();
       console.log(prod);
+      setThings_covered(JSON.parse(prod.things_covered));
       setLoading(false);
       setProduct(prod);
       cart.isItemAddedToCart(prod);
@@ -86,6 +89,9 @@ export default function Product({ params }) {
   useEffect(() => {
     console.log(product.url);
   }, [product.url]);
+  useEffect(() => {
+    console.log(things_covered);
+  }, [things_covered]);
   return (
     <>
       {loading ? (
@@ -121,7 +127,7 @@ export default function Product({ params }) {
                       src={url}
                       key={index}
                       width={140}
-                      height={105}
+                      height={105}  
                       alt="product"
                       className={`cursor-pointer object-contain rounded-md ${
                         selectedImage === url ? "border-2 border-primary" : ""
@@ -178,7 +184,7 @@ export default function Product({ params }) {
                     ))}
                   </div>
                 </div>
-                <div className="flex justify-between">
+                <div className="flex flex-col justify-between">
                   <div className="flex items-center justify-between w-full gap-4">
                     <div className="flex flex-col">
                       <h1 className="text-gray-500 text-xl line-through">
@@ -193,6 +199,9 @@ export default function Product({ params }) {
                       {showDetails ? "Hide Details" : "Show Details"}
                     </button>
                   </div>
+                  <div className="flex" title="Per Day Use">
+                              <h1 className="text-gray-700">₹{(product.usage_time_days/product.price).toFixed(2)}/day</h1>
+                            </div>
                 </div>
                 <div className="flex p-4 rounded-md bg-[#f5f5f5]">
                   <div className="flex flex-col gap-4">
@@ -227,7 +236,27 @@ export default function Product({ params }) {
                     </div>
                   </div>
                 </div>
-                {product?.inStock === true ? (
+                {things_covered && (
+                  <div className="flex flex-col gap-3 mt-[-1rem] border-2 border-[#f5f5f5] p-5 rounded-md">
+                    <div className="flex gap-2">
+                      <Shield
+                        size={25}
+                        className="text-primary"
+                        fill="#004cde"
+                      />
+                      <h1 className="text-xl font-bold">Things Covered</h1>
+                    </div>
+                    <div className="flex">
+                      <ul className="space-y-1 text-gray-500 list-disc list-inside dark:text-gray-400">
+                        {things_covered &&
+                          Object.keys(things_covered).map((key, index) => (
+                            <li key={index}>{things_covered[key]}</li>
+                          ))}
+                      </ul>
+                    </div>
+                  </div>
+                )}
+                {product?.quantity_stock>0 ? (
                   <div className="flex flex-col gap-2">
                     <div className="flex gap-4">
                       {/* add to cart */}
@@ -287,15 +316,6 @@ export default function Product({ params }) {
                       <button
                         className="w-[60%] flex justify-center items-center gap-2 bg-black text-white px-4 py-4 rounded-md cursor-not-allowed"
                         title="Currently Out of Stock"
-                        // onClick={() => {
-                        //   if (cart.isItemAdded) {
-                        //     cart.removeFromCart(product);
-                        //     toast.info("Removed from cart", {autoClose: 1000});
-                        //   } else {
-                        //     cart.addToCart(product);
-                        //     toast.success("Added to cart", {autoClose: 1000});
-                        //   }
-                        // }}
                       >
                         <ShoppingBag size={20} />
                         <h1 className="">
@@ -308,23 +328,10 @@ export default function Product({ params }) {
                       <button
                         className="w-[40%] flex justify-center items-center gap-2 bg-primary text-white px-4 py-4 rounded-md cursor-not-allowed"
                         title="Currently Out of Stock"
-                        // onClick={() => {
-                        //   if (cart.isItemAdded) {
-                        //     router.push('/cart')
-                        //     // cart.removeFromCart(product);
-                        //     // toast.info("Removed from cart", { autoClose: 3000 });
-                        //   } else {
-                        //     cart.addToCart(product);
-                        //     router.push('/cart')
-                        //   }
-                        // }}
                       >
                         <TicketCheck size={20} />
                         <h1 className="">Buy Now</h1>
                       </button>
-                      {/* <button className="w-[20%] sm:w-[10%] flex justify-center items-center gap-2 bg-red-500 text-white px-4 py-4 rounded-md">
-                      <Heart size={25} />
-                    </button> */}
                     </div>
                     <div className="flex items-center gap-2 justify-center">
                       <Truck size={20} className="text-gray-500" />
@@ -338,7 +345,7 @@ export default function Product({ params }) {
             </div>
             <Reviews product={product} />
             {showDetails && (
-              <div className="fixed flex justify-center items-center z-40 p-4 inset-0  backdrop-blur-sm backdrop-brightness-50 rounded-md">
+              <div className="fixed flex justify-center items-center z-50 p-4 inset-0  backdrop-blur-sm backdrop-brightness-50 rounded-md">
                 <div className="p-6 flex flex-col gap-3 justify-center bg-white modal">
                   <div className="flex justify-between">
                     <div className="flex">
