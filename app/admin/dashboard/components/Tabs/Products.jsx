@@ -8,6 +8,15 @@ import { Check } from "lucide-react";
 import PointsForm from "@/app/components/ThingsCovered";
 
 const Products = () => {
+  const imageKeys = [
+    { key: 'image_black', color: 'Black' },
+    { key: 'image_blue', color: 'Blue' },
+    { key: 'image_grey', color: 'Grey' },
+    { key: 'image_hutchBlue', color: 'Hutch Blue' },
+    { key: 'image_navyBlue', color: 'Navy Blue' },
+    { key: 'image_red', color: 'Red' },
+    { key: 'image_royalBlue', color: 'Royal Blue' }
+  ];
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [openModal, setOpenModal] = useState(false);
@@ -122,8 +131,14 @@ const Products = () => {
       quantity_stock,
       usage_time_days,
     } = formData;
-    appendColors();
-    // inserting data
+    const urls = [];
+    imageKeys.forEach(({ key, color }) => {
+      if (formData[key] && formData[key].length > 0) {
+        console.log(formData[key], color);
+        urls.push(...formData[key]);
+        formData.available_colors.push(color);
+      }
+    });
     const { data, error } = await supabase.from("Products").insert([
       {
         title,
@@ -151,6 +166,7 @@ const Products = () => {
         quantity_stock,
         things_covered: JSON.stringify(thingsCovered),
         usage_time_days,
+        url:urls
       },
     ]);
 
@@ -222,7 +238,14 @@ const Products = () => {
     }));
   };
   const handleEditProduct = async () => {
-    console.log(modalItem);
+    const urls = [];
+    
+    imageKeys.forEach((key) => {
+      if (modalItem[key] && modalItem[key].length > 0) {
+        urls.push(...modalItem[key]);
+      }
+    });
+    console.log(urls);
     const { data, error } = await supabase
       .from("Products")
       .update([
@@ -250,6 +273,7 @@ const Products = () => {
           image_red: modalItem.image_red,
           image_royalBlue: modalItem.image_royalBlue,
           things_covered: modalItem.things_covered,
+          url: urls,
         },
       ])
       .eq("id", modalItem.id);
@@ -280,30 +304,7 @@ const Products = () => {
     document.addEventListener("click", clickHandler);
     return () => document.removeEventListener("click", clickHandler);
   });
-  const appendColors = () => {
-    if (formData.image_black.length > 0) {
-      formData.available_colors.push("Black");
-    }
-    if (formData.image_blue.length > 0) {
-      formData.available_colors.push("Blue");
-    }
-    if (formData.image_grey.length > 0) {
-      formData.available_colors.push("Grey");
-    }
-    if (formData.image_hutchBlue.length > 0) {
-      formData.available_colors.push("Hutch Blue");
-    }
-    if (formData.image_navyBlue.length > 0) {
-      formData.available_colors.push("Navy Blue");
-    }
-    if (formData.image_red.length > 0) {
-      formData.available_colors.push("Red");
-    }
-    if (formData.image_royalBlue.length > 0) {
-      formData.available_colors.push("Royal Blue");
-    }
-    console.log(formData.available_colors);
-  };
+
   const toggleBestSeller = async () => {
     const { data, error } = await supabase
       .from("Products")
@@ -364,8 +365,8 @@ const Products = () => {
           <div className="w-full flex flex-col gap-6">
             <div className="flex w-full p-8 rounded-xl border border-stroke bg-white shadow-default">
               <div className="flex w-full flex-col gap-4">
-                 <h1 className="text-red-500" onClick={addFakeData}>
-                {/*<h1 className="text-red-500">*/}
+                <h1 className="text-red-500" onClick={addFakeData}>
+                  {/*<h1 className="text-red-500">*/}
                   Fields marked with * are mandatory
                 </h1>
                 <div className="mb-4.5">
@@ -1006,32 +1007,32 @@ const Products = () => {
                         </div>
                       </div>
                       <div className="mb-4.5 flex flex-col gap-6 xl:flex-row">
-                      <div className="w-full xl:w-1/2">
-                        <label className="mb-3 block text-sm font-medium text-black ">
-                          Image URL NAVY BLUE
-                        </label>
-                        <input
-                          type="text"
-                          name="image_navyBlue"
-                          placeholder="Image URL's NAVY BLUE (separated by comma)"
-                          value={modalItem.image_navyBlue}
-                          onChange={handleChangeModal}
-                          className="w-full rounded border-[1.5px] border-stroke bg-transparent px-5 py-3 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter"
-                        />
-                      </div>
-                      <div className="w-full xl:w-1/2">
-                        <label className="mb-3 block text-sm font-medium text-black ">
-                          Things Covered
-                        </label>
-                        <input
-                          type="text"
-                          name="things_covered"
-                          placeholder="Things Covered (Just type in JSON format)"
-                          value={modalItem.things_covered}
-                          onChange={handleChangeModal}
-                          className="w-full rounded border-[1.5px] border-stroke bg-transparent px-5 py-3 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter"
-                        />
-                      </div>
+                        <div className="w-full xl:w-1/2">
+                          <label className="mb-3 block text-sm font-medium text-black ">
+                            Image URL NAVY BLUE
+                          </label>
+                          <input
+                            type="text"
+                            name="image_navyBlue"
+                            placeholder="Image URL's NAVY BLUE (separated by comma)"
+                            value={modalItem.image_navyBlue}
+                            onChange={handleChangeModal}
+                            className="w-full rounded border-[1.5px] border-stroke bg-transparent px-5 py-3 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter"
+                          />
+                        </div>
+                        <div className="w-full xl:w-1/2">
+                          <label className="mb-3 block text-sm font-medium text-black ">
+                            Things Covered
+                          </label>
+                          <input
+                            type="text"
+                            name="things_covered"
+                            placeholder="Things Covered (Just type in JSON format)"
+                            value={modalItem.things_covered}
+                            onChange={handleChangeModal}
+                            className="w-full rounded border-[1.5px] border-stroke bg-transparent px-5 py-3 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter"
+                          />
+                        </div>
                       </div>
                       <button
                         onClick={handleEditProduct}

@@ -94,11 +94,11 @@ const ProductsListingTable = ({ data, onOpenModal }) => {
                 <tr key={key}>
                   <td className="flex gap-3 border-b dark:border-gray-500 border-[#eee] px-4 py-5 pl-9 dark:border-strokedark xl:pl-11">
                     <Image
-                      src={item.url?item.url[0]:""}
+                      src={item.url[0]}
                       width={60}
                       height={60}
                       alt={item.title}
-                      className="rounded-md object-cover h-14"
+                      className="rounded-md object-contain h-14"
                     />
                     <div className="flex flex-col gap-1">
                       <p className="font-medium text-black dark:text-white max-w-md">
