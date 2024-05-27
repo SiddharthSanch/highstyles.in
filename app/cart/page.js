@@ -397,7 +397,7 @@ const CartItemIndividual = ({ product }) => {
         >
           <div className="flex max-h-[5rem]">
             <Image
-              src={product.url[0]}
+              src={product.url?product.url[0]:""}
               alt={product.title}
               width={100}
               height={100}

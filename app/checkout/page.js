@@ -399,7 +399,7 @@ const CartItemIndividual = ({ product }) => {
         <div className="flex gap-3">
           <div className="flex max-h-[5rem]">
             <Image
-              src={product.url[0]}
+              src={product.url?product.url[0]:"https://via.placeholder.com/150"}
               alt={product.title}
               width={100}
               height={100}

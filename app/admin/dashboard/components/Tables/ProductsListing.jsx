@@ -94,7 +94,7 @@ const ProductsListingTable = ({ data, onOpenModal }) => {
                 <tr key={key}>
                   <td className="flex gap-3 border-b dark:border-gray-500 border-[#eee] px-4 py-5 pl-9 dark:border-strokedark xl:pl-11">
                     <Image
-                      src={item.url[0]}
+                      src={item.url?item.url[0]:""}
                       width={60}
                       height={60}
                       alt={item.title}

@@ -58,8 +58,8 @@ const Products = () => {
     usage_time_days: 0,
   });
   useEffect(() => {
-    console.log(formData.category)
-  },[formData.category])
+    console.log(formData.category);
+  }, [formData.category]);
   const handleChange = (e) => {
     const { name, value } = e.target;
     if (
@@ -165,9 +165,7 @@ const Products = () => {
 
     console.log(data);
 
-    // await fetchProducts();
     toast.success("Product added successfully", toastsettings);
-    // for resetting fields
     setTimeout(() => {
       setFormData({
         title: "",
@@ -207,7 +205,17 @@ const Products = () => {
     const { name, value } = e.target;
     let updatedValue = value;
 
-    if (name === "url" || name === "available_colors") {
+    if (
+      name === "url" ||
+      name === "available_colors" ||
+      name === "image_black" ||
+      name === "image_blue" ||
+      name === "image_grey" ||
+      name === "image_hutchBlue" ||
+      name === "image_navyBlue" ||
+      name === "image_red" ||
+      name === "image_royalBlue"
+    ) {
       updatedValue = value.split(/\s*,\s*/);
     }
 
@@ -216,7 +224,6 @@ const Products = () => {
       [name]: updatedValue,
     }));
   };
-
   const handleEditProduct = async () => {
     console.log(modalItem);
     const { data, error } = await supabase
@@ -227,18 +234,25 @@ const Products = () => {
           description: modalItem.description,
           created_at: modalItem.created_at,
           SKU: modalItem.SKU,
-          available_colors: modalItem.available_colors,
           brand: modalItem.brand,
           category: modalItem.category,
           condition: modalItem.condition,
           for_gender: modalItem.for_gender,
           no_of_reviews: modalItem.no_of_reviews,
           rating: modalItem.rating,
-          url: modalItem.url,
           released_in: modalItem.released_in,
           price: modalItem.price,
           mrp: modalItem.mrp,
           quantity_stock: modalItem.quantity_stock,
+          usage_time_days: modalItem.usage_time_days,
+          image_black: modalItem.image_black,
+          image_blue: modalItem.image_blue,
+          image_grey: modalItem.image_grey,
+          image_hutchBlue: modalItem.image_hutchBlue,
+          image_navyBlue: modalItem.image_navyBlue,
+          image_red: modalItem.image_red,
+          image_royalBlue: modalItem.image_royalBlue,
+          things_covered: modalItem.things_covered,
         },
       ])
       .eq("id", modalItem.id);
@@ -250,11 +264,10 @@ const Products = () => {
     toast.success("Product updated successfully", toastsettings);
     setOpenModal(false);
     getProducts();
-    window.location.reload();
+    // window.location.reload();
   };
   const dropdown = useRef(null);
   const trigger = useRef(null);
-  // const [dropdownOpen, setDropdownOpen] = useState(false);
   useEffect(() => {
     const clickHandler = ({ target }) => {
       if (!dropdown.current) return;
@@ -312,6 +325,37 @@ const Products = () => {
       ? toast.success("Product removed from Best Seller", toastsettings)
       : toast.success("Product marked as Best Seller", toastsettings);
   };
+  const addFakeData = () => {
+    setFormData({
+      title: "Product Name",
+      description: "Product Description",
+      created_at: new Date().toISOString(),
+      SKU: "SKU1234567890",
+      available_colors: [],
+      brand: "Brand Name",
+      category: "Backpacks",
+      condition: "New",
+      for_gender: "Unisex",
+      no_of_reviews: 0,
+      rating: 0,
+      released_in: 2024,
+      price: 5000,
+      mrp: 6000,
+      image_black: [],
+      image_blue: [],
+      image_grey: [],
+      image_hutchBlue: [],
+      image_navyBlue: [],
+      image_red: [],
+      image_royalBlue: [],
+      quantity_stock: 100,
+      usage_time_days: 0,
+      url: [],
+    });
+  };
+  useEffect(() => {
+    console.log(formData);
+  }, [formData]);
   return (
     <>
       {loading ? (
@@ -323,6 +367,10 @@ const Products = () => {
           <div className="w-full flex flex-col gap-6">
             <div className="flex w-full p-8 rounded-xl border border-stroke bg-white shadow-default">
               <div className="flex w-full flex-col gap-4">
+                {/* <h1 className="text-red-500" onClick={addFakeData}> */}
+                <h1 className="text-red-500">
+                  Fields marked with * are mandatory
+                </h1>
                 <div className="mb-4.5">
                   <label className="mb-3 block text-sm font-medium text-black ">
                     Product Name <span className="text-meta-1">*</span>
@@ -340,7 +388,7 @@ const Products = () => {
                 <div className="mb-4.5 flex row gap-6">
                   <div className="flex flex-col w-full xl:w-1/2">
                     <label className="mb-3 block text-sm font-medium text-black ">
-                      Product Description
+                      Product Description*
                     </label>
                     <input
                       type="text"
@@ -354,7 +402,7 @@ const Products = () => {
                   </div>
                   <div className="flex flex-col w-full xl:w-1/2">
                     <label className="mb-3 block text-sm font-medium text-black ">
-                      Product Quantity
+                      Product Quantity*
                     </label>
                     <input
                       type="number"
@@ -370,7 +418,7 @@ const Products = () => {
                 <div className="mb-4.5 flex flex-col gap-6 xl:flex-row">
                   <div className="w-full xl:w-1/2">
                     <label className="mb-3 block text-sm font-medium text-black ">
-                      Product SKU
+                      Product SKU*
                     </label>
                     <input
                       type="text"
@@ -384,7 +432,7 @@ const Products = () => {
                   </div>
                   <div className="w-full xl:w-1/2">
                     <label className="mb-3 block text-sm font-medium text-black ">
-                      Product MRP
+                      Product MRP*
                     </label>
                     <input
                       type="text"
@@ -400,7 +448,7 @@ const Products = () => {
                 <div className="mb-4.5 flex flex-col gap-6 xl:flex-row">
                   <div className="w-full xl:w-1/2">
                     <label className="mb-3 block text-sm font-medium text-black ">
-                      Product Brand
+                      Product Brand*
                     </label>
                     <input
                       name="brand"
@@ -414,7 +462,7 @@ const Products = () => {
                   </div>
                   <div className="w-full xl:w-1/2">
                     <label className="mb-3 block text-sm font-medium text-black ">
-                      Product Category
+                      Product Category*
                     </label>
                     <select
                       name="category"
@@ -465,7 +513,7 @@ const Products = () => {
                 <div className="mb-4.5 flex flex-col gap-6 xl:flex-row">
                   <div className="w-full xl:w-1/2">
                     <label className="mb-3 block text-sm font-medium text-black ">
-                      Product Price
+                      Product Price*
                     </label>
                     <input
                       type="number"
@@ -473,7 +521,7 @@ const Products = () => {
                       name="price"
                       value={formData.price}
                       onChange={handleChange}
-                      placeholder="Product Price"
+                      placeholder="Selling Price i.e. < MRP"
                       className="w-full rounded border-[1.5px] border-stroke bg-transparent px-5 py-3 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter"
                     />
                   </div>
@@ -876,49 +924,117 @@ const Products = () => {
                           />
                         </div>
                       </div>
-                      <div className="grid gap-4 mb-4 grid-cols-2">
-                        <div className="col-span-2 sm:col-span-1">
-                          <label
-                            for="imageLink"
-                            className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                          >
-                            Image URL's
+                      <div className="mb-4.5 flex flex-col gap-6 xl:flex-row">
+                        <div className="w-full xl:w-1/2">
+                          <label className="mb-3 block text-sm font-medium text-black ">
+                            Image URL RED
                           </label>
                           <input
                             type="text"
-                            name="url"
-                            id="url"
-                            value={
-                              modalItem?.url ? modalItem.url.join(",") : ""
-                            }
+                            name="image_red"
+                            placeholder="Image URL's RED (separated by comma)"
+                            value={modalItem.image_red}
                             onChange={handleChangeModal}
-                            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 "
-                            placeholder="$2999"
-                            required=""
+                            className="w-full rounded border-[1.5px] border-stroke bg-transparent px-5 py-3 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter"
                           />
                         </div>
-                        <div className="col-span-2 sm:col-span-1">
-                          <label
-                            for="price"
-                            className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                          >
-                            Available Colors
+                        <div className="w-full xl:w-1/2">
+                          <label className="mb-3 block text-sm font-medium text-black ">
+                            Image URL BLUE
                           </label>
                           <input
                             type="text"
-                            name="available_colors"
-                            id="available_colors"
-                            value={
-                              modalItem?.url
-                                ? modalItem.available_colors.join(",")
-                                : ""
-                            }
+                            name="image_blue"
+                            placeholder="Image URL's BLUE (separated by comma)"
+                            value={modalItem.image_blue}
                             onChange={handleChangeModal}
-                            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 "
-                            placeholder="$2999"
-                            required=""
+                            className="w-full rounded border-[1.5px] border-stroke bg-transparent px-5 py-3 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter"
                           />
                         </div>
+                      </div>
+                      <div className="mb-4.5 flex flex-col gap-6 xl:flex-row">
+                        <div className="w-full xl:w-1/2">
+                          <label className="mb-3 block text-sm font-medium text-black ">
+                            Image URL GREY
+                          </label>
+                          <input
+                            type="text"
+                            name="image_grey"
+                            placeholder="Image URL's GREY (separated by comma)"
+                            value={modalItem.image_grey}
+                            onChange={handleChangeModal}
+                            className="w-full rounded border-[1.5px] border-stroke bg-transparent px-5 py-3 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter"
+                          />
+                        </div>
+                        <div className="w-full xl:w-1/2">
+                          <label className="mb-3 block text-sm font-medium text-black ">
+                            Image URL HUTCH BLUE
+                          </label>
+                          <input
+                            type="text"
+                            name="image_hutchBlue"
+                            placeholder="Image URL's HUTCH BLUE (separated by comma)"
+                            value={modalItem.image_hutchBlue}
+                            onChange={handleChangeModal}
+                            className="w-full rounded border-[1.5px] border-stroke bg-transparent px-5 py-3 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter"
+                          />
+                        </div>
+                      </div>
+                      <div className="mb-4.5 flex flex-col gap-6 xl:flex-row">
+                        <div className="w-full xl:w-1/2">
+                          <label className="mb-3 block text-sm font-medium text-black ">
+                            Image URL BLACK
+                          </label>
+                          <input
+                            type="text"
+                            name="image_black"
+                            placeholder="Image URL's BLACK (separated by comma)"
+                            value={modalItem.image_black}
+                            onChange={handleChangeModal}
+                            className="w-full rounded border-[1.5px] border-stroke bg-transparent px-5 py-3 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter"
+                          />
+                        </div>
+                        <div className="w-full xl:w-1/2">
+                          <label className="mb-3 block text-sm font-medium text-black ">
+                            Image URL ROYAL BLUE
+                          </label>
+                          <input
+                            type="text"
+                            name="image_royalBlue"
+                            placeholder="Image URL's ROYAL BLUE (separated by comma)"
+                            value={modalItem.image_royalBlue}
+                            onChange={handleChangeModal}
+                            className="w-full rounded border-[1.5px] border-stroke bg-transparent px-5 py-3 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter"
+                          />
+                        </div>
+                      </div>
+                      <div className="mb-4.5 flex flex-col gap-6 xl:flex-row">
+                      <div className="w-full xl:w-1/2">
+                        <label className="mb-3 block text-sm font-medium text-black ">
+                          Image URL NAVY BLUE
+                        </label>
+                        <input
+                          type="text"
+                          name="image_navyBlue"
+                          placeholder="Image URL's NAVY BLUE (separated by comma)"
+                          value={modalItem.image_navyBlue}
+                          onChange={handleChangeModal}
+                          className="w-full rounded border-[1.5px] border-stroke bg-transparent px-5 py-3 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter"
+                        />
+                      </div>
+                      <div className="w-full xl:w-1/2">
+                        <label className="mb-3 block text-sm font-medium text-black ">
+                          Things Covered
+                        </label>
+                        <input
+                          type="text"
+                          name="things_covered"
+                          placeholder="Things Covered (Just type in JSON format)"
+                          value={modalItem.things_covered}
+                          onChange={handleChangeModal}
+                          className="w-full rounded border-[1.5px] border-stroke bg-transparent px-5 py-3 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter"
+                        />
+                      </div>
                       </div>
                       <button
                         onClick={handleEditProduct}

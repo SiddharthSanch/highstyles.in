@@ -690,7 +690,7 @@ const page = () => {
                           </div>
                           <div className="flex max-h-[60%] justify-center">
                             <Image
-                              src={item.url[0] ? item.url[0] : placeholder}
+                              src={item.url ? item.url[0] : placeholder}
                               alt={item.title}
                               width={150}
                               height={150}

@@ -201,7 +201,7 @@ const SpecificItem = ({ itemId, status, user }) => {
             <div className="flex sm:flex-row flex-col" key={index}>
               <div className="flex justify-center sm:w-[35%] min-h-[20rem]">
                 <Image
-                  src={item.url[0]}
+                  src={item.url?item.url[0]:""}
                   alt={item.title}
                   width={500}
                   height={500}
