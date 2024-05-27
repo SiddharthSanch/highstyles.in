@@ -57,9 +57,6 @@ const Products = () => {
     quantity_stock: 0,
     usage_time_days: 0,
   });
-  useEffect(() => {
-    console.log(formData.category);
-  }, [formData.category]);
   const handleChange = (e) => {
     const { name, value } = e.target;
     if (
@@ -166,35 +163,35 @@ const Products = () => {
     console.log(data);
 
     toast.success("Product added successfully", toastsettings);
-    setTimeout(() => {
-      setFormData({
-        title: "",
-        description: "",
-        created_at: new Date().toISOString(),
-        SKU: "",
-        available_colors: [],
-        brand: "",
-        category: "",
-        condition: "New",
-        for_gender: "Unisex",
-        no_of_reviews: 0,
-        rating: 0,
-        url: [],
-        released_in: 2024,
-        price: 0,
-        mrp: 0,
-        image_black: [],
-        image_blue: [],
-        image_grey: [],
-        image_hutchBlue: [],
-        image_navyBlue: [],
-        image_red: [],
-        image_royalBlue: [],
-        quantity_stock: 0,
-        things_covered: {},
-        usage_time_days: 0,
-      });
-    }, 1000);
+    // setTimeout(() => {
+    //   setFormData({
+    //     title: "",
+    //     description: "",
+    //     created_at: new Date().toISOString(),
+    //     SKU: "",
+    //     available_colors: [],
+    //     brand: "",
+    //     category: "",
+    //     condition: "New",
+    //     for_gender: "Unisex",
+    //     no_of_reviews: 0,
+    //     rating: 0,
+    //     url: [],
+    //     released_in: 2024,
+    //     price: 0,
+    //     mrp: 0,
+    //     image_black: [],
+    //     image_blue: [],
+    //     image_grey: [],
+    //     image_hutchBlue: [],
+    //     image_navyBlue: [],
+    //     image_red: [],
+    //     image_royalBlue: [],
+    //     quantity_stock: 0,
+    //     things_covered: {},
+    //     usage_time_days: 0,
+    //   });
+    // }, 1000);
   };
   const handleOpenModal = (item) => {
     setOpenModal(true);
@@ -354,8 +351,8 @@ const Products = () => {
     });
   };
   useEffect(() => {
-    console.log(formData);
-  }, [formData]);
+    console.log(formData.category);
+  }, [formData.category]);
   return (
     <>
       {loading ? (
