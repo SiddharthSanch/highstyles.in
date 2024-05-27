@@ -1,6 +1,6 @@
 "use client";
 import { ChevronRight, Copyright, Moon, Sun } from "lucide-react";
-import dummyImage from "../../../public/bag-dumy.jpg";
+import dummyImage from "../../../public/login/login.png";
 import { useEffect, useRef, useState } from "react";
 import { Cookie, EyeIcon, EyeOffIcon, GraduationCap } from "lucide-react";
 import { ToastContainer, toast } from "react-toastify";
@@ -226,7 +226,7 @@ const NewLogin = () => {
             </div>
             <div className="flex flex-col gap-2">
               <div className="flex">
-                <button className="flex gap-4 items-center justify-center px-4 py-2 w-[18rem]  text-gray-600 rounded-full hover:bg-gray-100">
+                <button className="flex gap-4 items-center justify-center w-[18rem] rounded-full hover:bg-gray-100">
                   <Auth
                     onlyThirdPartyProviders
                     redirectTo={`${window.location.origin}/auth/callback`}
@@ -235,19 +235,19 @@ const NewLogin = () => {
                   />
                 </button>
               </div>
-              <div className="flex">
-                <button className="flex gap-4 items-center justify-center px-4 py-2 w-[18rem]  text-gray-600 rounded-full  hover:bg-gray-100">
-                  <Image
-                    src={
-                      "https://upload.wikimedia.org/wikipedia/commons/thumb/5/51/Facebook_f_logo_%282019%29.svg/900px-Facebook_f_logo_%282019%29.svg.png?20241203063624"
-                    }
-                    alt="google-logo"
-                    width={25}
-                    height={25}
-                  />
-                  <h1>Sign in with Facebook</h1>
-                </button>
-              </div>
+              {/*<div className="flex">*/}
+              {/*  <button className="flex gap-4 items-center justify-center px-4 py-2 w-[18rem]  text-gray-600 rounded-full  hover:bg-gray-100">*/}
+              {/*    <Image*/}
+              {/*      src={*/}
+              {/*        "https://upload.wikimedia.org/wikipedia/commons/thumb/5/51/Facebook_f_logo_%282019%29.svg/900px-Facebook_f_logo_%282019%29.svg.png?20241203063624"*/}
+              {/*      }*/}
+              {/*      alt="google-logo"*/}
+              {/*      width={25}*/}
+              {/*      height={25}*/}
+              {/*    />*/}
+              {/*    <h1>Sign in with Facebook</h1>*/}
+              {/*  </button>*/}
+              {/*</div>*/}
             </div>
             <div className="flex gap-4 w-full items-center justify-center">
               <hr className="w-[25%]" />

@@ -367,8 +367,8 @@ const Products = () => {
           <div className="w-full flex flex-col gap-6">
             <div className="flex w-full p-8 rounded-xl border border-stroke bg-white shadow-default">
               <div className="flex w-full flex-col gap-4">
-                {/* <h1 className="text-red-500" onClick={addFakeData}> */}
-                <h1 className="text-red-500">
+                 <h1 className="text-red-500" onClick={addFakeData}>
+                {/*<h1 className="text-red-500">*/}
                   Fields marked with * are mandatory
                 </h1>
                 <div className="mb-4.5">
