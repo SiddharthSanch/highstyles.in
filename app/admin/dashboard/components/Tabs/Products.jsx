@@ -9,13 +9,17 @@ import PointsForm from "@/app/components/ThingsCovered";
 
 const Products = () => {
   const imageKeys = [
-    { key: 'image_black', color: 'Black' },
-    { key: 'image_blue', color: 'Blue' },
-    { key: 'image_grey', color: 'Grey' },
-    { key: 'image_hutchBlue', color: 'Hutch Blue' },
-    { key: 'image_navyBlue', color: 'Navy Blue' },
-    { key: 'image_red', color: 'Red' },
-    { key: 'image_royalBlue', color: 'Royal Blue' }
+    { key: "image_black", color: "Black" },
+    { key: "image_blue", color: "Blue" },
+    { key: "image_grey", color: "Grey" },
+    { key: "image_hutchBlue", color: "Hutch Blue" },
+    { key: "image_navyBlue", color: "Navy Blue" },
+    { key: "image_red", color: "Red" },
+    { key: "image_royalBlue", color: "Royal Blue" },
+    { key: "image_artifical_blue", color: "Artifical Blue" },
+    { key: "image_sky_blue", color: "Artifical Blue" },
+    { key: "image_mahroon", color: "Artifical Blue" },
+    { key: "image_pink", color: "Pink" },
   ];
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -63,6 +67,10 @@ const Products = () => {
     image_navyBlue: [],
     image_red: [],
     image_royalBlue: [],
+    image_pink: [],
+    image_artifical_blue: [],
+    image_sky_blue: [],
+    image_mahroon: [],
     quantity_stock: 0,
     usage_time_days: 0,
   });
@@ -128,6 +136,10 @@ const Products = () => {
       image_navyBlue,
       image_red,
       image_royalBlue,
+      image_artifical_blue,
+      image_sky_blue,
+      image_mahroon,
+      image_pink,
       quantity_stock,
       usage_time_days,
     } = formData;
@@ -163,10 +175,14 @@ const Products = () => {
         image_navyBlue,
         image_red,
         image_royalBlue,
+        image_artifical_blue,
+        image_sky_blue,
+        image_mahroon,
+        image_pink,
         quantity_stock,
         things_covered: JSON.stringify(thingsCovered),
         usage_time_days,
-        url:urls
+        url: urls,
       },
     ]);
 
@@ -227,7 +243,11 @@ const Products = () => {
       name === "image_hutchBlue" ||
       name === "image_navyBlue" ||
       name === "image_red" ||
-      name === "image_royalBlue"
+      name === "image_royalBlue" ||
+      name === "image_artifical_blue" ||
+      name === "image_sky_blue" ||
+      name === "image_mahroon" ||
+      name === "image_pink"
     ) {
       updatedValue = value.split(/\s*,\s*/);
     }
@@ -239,7 +259,7 @@ const Products = () => {
   };
   const handleEditProduct = async () => {
     const urls = [];
-    
+
     imageKeys.forEach((key) => {
       if (modalItem[key] && modalItem[key].length > 0) {
         urls.push(...modalItem[key]);
@@ -272,6 +292,10 @@ const Products = () => {
           image_navyBlue: modalItem.image_navyBlue,
           image_red: modalItem.image_red,
           image_royalBlue: modalItem.image_royalBlue,
+          image_artifical_blue: modalItem.image_artifical_blue,
+          image_sky_blue: modalItem.image_sky_blue,
+          image_mahroon: modalItem.image_mahroon,
+          image_pink: modalItem.image_pink,
           things_covered: modalItem.things_covered,
           url: urls,
         },
@@ -616,6 +640,62 @@ const Products = () => {
                       name="image_royalBlue"
                       placeholder="Image URL's ROYAL BLUE (separated by comma)"
                       value={formData.image_royalBlue}
+                      onChange={handleChange}
+                      className="w-full rounded border-[1.5px] border-stroke bg-transparent px-5 py-3 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter"
+                    />
+                  </div>
+                </div>
+                <div className="mb-4.5 flex flex-col gap-6 xl:flex-row">
+                  <div className="w-full xl:w-1/2">
+                    <label className="mb-3 block text-sm font-medium text-black ">
+                      Image URL Mahroon
+                    </label>
+                    <input
+                      type="text"
+                      name="image_mahroon"
+                      placeholder="Image URL's Mahroon (separated by comma)"
+                      value={formData.image_mahroon}
+                      onChange={handleChange}
+                      className="w-full rounded border-[1.5px] border-stroke bg-transparent px-5 py-3 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter"
+                    />
+                  </div>
+                  <div className="w-full xl:w-1/2">
+                    <label className="mb-3 block text-sm font-medium text-black ">
+                      Image URL Pink
+                    </label>
+                    <input
+                      type="text"
+                      name="image_pink"
+                      placeholder="Image URL's Pink (separated by comma)"
+                      value={formData.image_pink}
+                      onChange={handleChange}
+                      className="w-full rounded border-[1.5px] border-stroke bg-transparent px-5 py-3 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter"
+                    />
+                  </div>
+                </div>
+                <div className="mb-4.5 flex flex-col gap-6 xl:flex-row">
+                  <div className="w-full xl:w-1/2">
+                    <label className="mb-3 block text-sm font-medium text-black ">
+                      Image URL Sky Blue
+                    </label>
+                    <input
+                      type="text"
+                      name="image_black"
+                      placeholder="Image URL's Sky Blue (separated by comma)"
+                      value={formData.image_sky_blue}
+                      onChange={handleChange}
+                      className="w-full rounded border-[1.5px] border-stroke bg-transparent px-5 py-3 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter"
+                    />
+                  </div>
+                  <div className="w-full xl:w-1/2">
+                    <label className="mb-3 block text-sm font-medium text-black ">
+                      Image URL Artifical Blue
+                    </label>
+                    <input
+                      type="text"
+                      name="image_royalBlue"
+                      placeholder="Image URL's Artificial BLUE (separated by comma)"
+                      value={formData.image_artifical_blue}
                       onChange={handleChange}
                       className="w-full rounded border-[1.5px] border-stroke bg-transparent px-5 py-3 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter"
                     />
@@ -1006,6 +1086,62 @@ const Products = () => {
                           />
                         </div>
                       </div>
+                      <div className="mb-4.5 flex flex-col gap-6 xl:flex-row">
+                  <div className="w-full xl:w-1/2">
+                    <label className="mb-3 block text-sm font-medium text-black ">
+                      Image URL Mahroon
+                    </label>
+                    <input
+                      type="text"
+                      name="image_mahroon"
+                      placeholder="Image URL's Mahroon (separated by comma)"
+                      value={modalItem.image_mahroon}
+                      onChange={handleChangeModal}
+                      className="w-full rounded border-[1.5px] border-stroke bg-transparent px-5 py-3 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter"
+                    />
+                  </div>
+                  <div className="w-full xl:w-1/2">
+                    <label className="mb-3 block text-sm font-medium text-black ">
+                      Image URL Pink
+                    </label>
+                    <input
+                      type="text"
+                      name="image_pink"
+                      placeholder="Image URL's Pink (separated by comma)"
+                      value={modalItem.image_pink}
+                      onChange={handleChangeModal}
+                      className="w-full rounded border-[1.5px] border-stroke bg-transparent px-5 py-3 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter"
+                    />
+                  </div>
+                </div>
+                <div className="mb-4.5 flex flex-col gap-6 xl:flex-row">
+                  <div className="w-full xl:w-1/2">
+                    <label className="mb-3 block text-sm font-medium text-black ">
+                      Image URL Sky Blue
+                    </label>
+                    <input
+                      type="text"
+                      name="image_black"
+                      placeholder="Image URL's Sky Blue (separated by comma)"
+                      value={modalItem.image_sky_blue}
+                      onChange={handleChangeModal}
+                      className="w-full rounded border-[1.5px] border-stroke bg-transparent px-5 py-3 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter"
+                    />
+                  </div>
+                  <div className="w-full xl:w-1/2">
+                    <label className="mb-3 block text-sm font-medium text-black ">
+                      Image URL Artifical Blue
+                    </label>
+                    <input
+                      type="text"
+                      name="image_royalBlue"
+                      placeholder="Image URL's Artificial BLUE (separated by comma)"
+                      value={modalItem.image_artifical_blue}
+                      onChange={handleChangeModal}
+                      className="w-full rounded border-[1.5px] border-stroke bg-transparent px-5 py-3 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter"
+                    />
+                  </div>
+                </div>
                       <div className="mb-4.5 flex flex-col gap-6 xl:flex-row">
                         <div className="w-full xl:w-1/2">
                           <label className="mb-3 block text-sm font-medium text-black ">
