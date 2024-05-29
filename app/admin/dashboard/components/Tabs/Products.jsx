@@ -281,13 +281,12 @@ const Products = () => {
   };
   const handleEditProduct = async () => {
     const urls = [];
-
-    imageKeys.forEach((key) => {
+    imageKeys.forEach(({ key, color }) => {
       if (modalItem[key] && modalItem[key].length > 0) {
         urls.push(...modalItem[key]);
+        modalItem.available_colors.push(color);
       }
     });
-    console.log(urls);
     const { data, error } = await supabase
       .from("Products")
       .update([
@@ -334,7 +333,7 @@ const Products = () => {
     toast.success("Product updated successfully", toastsettings);
     setOpenModal(false);
     getProducts();
-    // window.location.reload();
+    window.location.reload();
   };
   const dropdown = useRef(null);
   const trigger = useRef(null);
@@ -705,7 +704,7 @@ const Products = () => {
                     </label>
                     <input
                       type="text"
-                      name="image_black"
+                      name="image_sky_blue"
                       placeholder="Image URL's Sky Blue (separated by comma)"
                       value={formData.image_sky_blue}
                       onChange={handleChange}
@@ -718,7 +717,7 @@ const Products = () => {
                     </label>
                     <input
                       type="text"
-                      name="image_royalBlue"
+                      name="image_artifical_blue"
                       placeholder="Image URL's Artificial BLUE (separated by comma)"
                       value={formData.image_artifical_blue}
                       onChange={handleChange}
@@ -733,7 +732,7 @@ const Products = () => {
                     </label>
                     <input
                       type="text"
-                      name="image_black"
+                      name="image_brown"
                       placeholder="Image URL's Brown (separated by comma)"
                       value={formData.image_brown}
                       onChange={handleChange}
@@ -746,7 +745,7 @@ const Products = () => {
                     </label>
                     <input
                       type="text"
-                      name="image_royalBlue"
+                      name="image_green"
                       placeholder="Image URL's Green (separated by comma)"
                       value={formData.image_green}
                       onChange={handleChange}
@@ -761,7 +760,7 @@ const Products = () => {
                     </label>
                     <input
                       type="text"
-                      name="image_black"
+                      name="image_tan"
                       placeholder="Image URL's Tan (separated by comma)"
                       value={formData.image_tan}
                       onChange={handleChange}
@@ -1202,7 +1201,7 @@ const Products = () => {
                         </label>
                         <input
                           type="text"
-                          name="image_black"
+                          name="image_sky_blue"
                           placeholder="Image URL's Sky Blue (separated by comma)"
                           value={modalItem.image_sky_blue}
                           onChange={handleChangeModal}
@@ -1215,7 +1214,7 @@ const Products = () => {
                         </label>
                         <input
                           type="text"
-                          name="image_royalBlue"
+                          name="image_artifical_blue"
                           placeholder="Image URL's Artificial BLUE (separated by comma)"
                           value={modalItem.image_artifical_blue}
                           onChange={handleChangeModal}
@@ -1230,7 +1229,7 @@ const Products = () => {
                     </label>
                     <input
                       type="text"
-                      name="image_black"
+                      name="image_brown"
                       placeholder="Image URL's Brown (separated by comma)"
                       value={modalItem.image_brown}
                       onChange={handleChangeModal}
@@ -1243,7 +1242,7 @@ const Products = () => {
                     </label>
                     <input
                       type="text"
-                      name="image_royalBlue"
+                      name="image_green"
                       placeholder="Image URL's Green (separated by comma)"
                       value={modalItem.image_green}
                       onChange={handleChangeModal}
@@ -1258,7 +1257,7 @@ const Products = () => {
                     </label>
                     <input
                       type="text"
-                      name="image_black"
+                      name="image_tan"
                       placeholder="Image URL's Tan (separated by comma)"
                       value={modalItem.image_tan}
                       onChange={handleChangeModal}
