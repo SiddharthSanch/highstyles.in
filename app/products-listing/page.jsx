@@ -578,7 +578,7 @@ const page = () => {
                     </div>
                   </div>
                 </div>
-                <div className="flex flex-wrap gap-2">
+                <div className="grid grid-cols-2 gap-4">
                   {searchedData?.map((item, index) => {
                     return (
                       <>
@@ -619,7 +619,7 @@ const page = () => {
                                   <h1 className="text-gray-700">
                                     ₹
                                     {(
-                                      item.usage_time_days / item.price
+                                       item.price/item.usage_time_days
                                     ).toFixed(2)}
                                     /day
                                   </h1>
